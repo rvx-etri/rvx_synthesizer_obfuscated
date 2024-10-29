@@ -1,0 +1,7 @@
+<?xml version="1.0" ?>
+<rvx>
+	<library_directory>./interface</library_directory>
+	<library_directory>./system_ip</library_directory>
+	<library_directory>./general_ip</library_directory>
+	<spec_list>./rvx_spec_list.xml</spec_list>
+</rvx>
