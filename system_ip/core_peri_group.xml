@@ -104,7 +104,7 @@
 			<library_name>apb</library_name>
 			<role>receiver</role>
 			<memorymap>
-				<size>2**12</size>
+				<size>2**15</size>
 			</memorymap>
 			<parameter>
 				<id>bw_addr</id>

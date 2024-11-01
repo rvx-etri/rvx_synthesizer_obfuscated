@@ -4,9 +4,7 @@
 		*(.data .data.*)
     *(.gnu.linkonce.d.*)
 		. = ALIGN(8);
-		*(.notcached)
-		. = ALIGN(8);
-	} >"${UNCACHEABLE_MEMORY_REGION}"
+	} >"${MULTI_WRITE_MEMORY_REGION}"
 
 	.sdata :
 	{
@@ -17,7 +15,7 @@
 		. = ALIGN(8);
 		*(.srodata .srodata.*)
 		. = ALIGN(8);
-  } >"${UNCACHEABLE_MEMORY_REGION}"
+  } >"${MULTI_WRITE_MEMORY_REGION}"
 
   .sbss :
 	{
@@ -27,7 +25,7 @@
     *(.sbss .sbss.* .gnu.linkonce.sb.*)
     *(.scommon)
 		. = ALIGN(8);
-	} >"${UNCACHEABLE_MEMORY_REGION}"
+	} >"${MULTI_WRITE_MEMORY_REGION}"
 
 	.bss :
 	{
@@ -37,4 +35,4 @@
 		*(COMMON)
 		. = ALIGN(8);
 		_bss_end = NEXT(4);
-	} >"${UNCACHEABLE_MEMORY_REGION}"
+	} >"${MULTI_WRITE_MEMORY_REGION}"

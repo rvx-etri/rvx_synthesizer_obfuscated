@@ -83,9 +83,9 @@ if __name__ == "__main__":
   sram_section_list = []
   dram_section_list = []
 
-  check_pair = (('CACHEABLE_MEMORY_REGION', 'link_section_sw.ld'),
-                ('UNCACHEABLE_MEMORY_REGION', 'link_section_mw.ld'),
-                ('BIGDATA_MEMORY_REGION', 'link_section_bigdata.ld'),
+  check_pair = (('SINGLE_WRITE_MEMORY_REGION', 'link_section_sw.ld'),
+                ('MULTI_WRITE_MEMORY_REGION', 'link_section_mw.ld'),
+                ('UNCACHEABLE_MEMORY_REGION', 'link_section_uc.ld'),
                )
 
   for define_name, section_file in check_pair:
@@ -172,7 +172,7 @@ if __name__ == "__main__":
 
   hw_library_list = ('timer', 'plic', 'oled_bw', 'oled_rgb', 'oled_bw', 'lcd_shield', 'tcaching', 'fuse_box', 'arducam',
                     'bluetooth', 'wifi', 'i2s', 'dma', 'florian', 'adc',
-                    'jpeg_encoder', 'jpegls_encoder', 'hbc1_tx', 'hbc1_rx', 'pact', 'sdram', 'edge_video_system', 'starc','dca')
+                    'jpeg_encoder', 'jpegls_encoder', 'hbc1_tx', 'hbc1_rx', 'pact', 'sdram', 'edge_video_system', 'starc','dca','c2c')
   for hw in hw_library_list:
     if f'INCLUDE_{hw.upper()}' in define_dict:
       line_list.append(f'-include ${{RVX_SSW_HOME}}/api/{hw}/env/set_env.mh')

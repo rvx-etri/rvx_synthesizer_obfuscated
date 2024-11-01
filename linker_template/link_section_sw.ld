@@ -70,7 +70,7 @@
     *(.rodata .rodata.*)
     *(.gnu.linkonce.r.*)
 		. = ALIGN(8);
-  } >"${CACHEABLE_MEMORY_REGION}"
+  } >"${SINGLE_WRITE_MEMORY_REGION}"
 	
 	.stack :
 	{
@@ -78,12 +78,32 @@
 		. += ("${STACK_SIZE}"*"${NUM_REAL_CORE}");
 		. = ALIGN("${DATA_ALIGN_SIZE}");
 		PROVIDE( _sp = . );
-	} >"${CACHEABLE_MEMORY_REGION}"
+	} >"${SINGLE_WRITE_MEMORY_REGION}"
 
 	.cached :
 	{
 		. = ALIGN("${DATA_ALIGN_SIZE}");
 		*(.cached)
 		*(.exclusive)
+  } >"${SINGLE_WRITE_MEMORY_REGION}"
+
+	.bigdata :
+	{
+		. = ALIGN("${DATA_ALIGN_SIZE}");
+		*(.bigdata)
+	} >"${SINGLE_WRITE_MEMORY_REGION}"
+
+	.once :
+	{
+		. = ALIGN("${DATA_ALIGN_SIZE}");
+		*(.once)
+	} >"${SINGLE_WRITE_MEMORY_REGION}"
+
+	.bigdata_bss :
+	{
+		. = ALIGN("${DATA_ALIGN_SIZE}");
+		_bigdata_bss_start = .;
+		*(.bigdata_bss)
+		_bigdata_bss_end = .;
 		_cacheable_end = NEXT("${DATA_ALIGN_SIZE}");
-  } >"${CACHEABLE_MEMORY_REGION}"
+	} >"${SINGLE_WRITE_MEMORY_REGION}"

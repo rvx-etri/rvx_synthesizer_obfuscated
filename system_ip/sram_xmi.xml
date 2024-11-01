@@ -60,7 +60,7 @@
 			<library_name>xmi</library_name>
 			<hdl_prefix></hdl_prefix>
 			<role>receiver</role>
-			<comm_type>memory:all</comm_type>
+			<comm_type>memory:data_c</comm_type>
 			<memorymap>
 				<size>0x10000</size>
 			</memorymap>
