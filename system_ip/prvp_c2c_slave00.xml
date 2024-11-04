@@ -78,13 +78,13 @@
     <signal>
       <name>c2cs00_sdo</name>
       <width>4</width>
-      <port>input</port>
+      <port>output</port>
       <comm_type>external</comm_type>
     </signal>
     <signal>
       <name>c2cs00_sdi</name>
       <width>4</width>
-      <port>output</port>
+      <port>input</port>
       <comm_type>external</comm_type>
     </signal>
 	</dec_ip>
