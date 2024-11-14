@@ -52,6 +52,8 @@ if __name__ == '__main__':
       variable_list.append((library_name, ip_instance_name, struct_name, variable_name))
     elif library_name=='sram_xmi':
       pass
+    elif library_name=='pact_dca':
+      pass
     else:
       assert 0, library_name
     
@@ -116,6 +118,8 @@ if __name__ == '__main__':
       for member_name, member_value in member_assign_list:
         line_list.append(f'\t{variable_name}->{member_name} = {member_value};')
     elif library_name=='sram_xmi':
+      pass
+    elif library_name=='pact_dca':
       pass
     else:
       assert 0, library_name

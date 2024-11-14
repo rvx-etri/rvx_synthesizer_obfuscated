@@ -34,6 +34,7 @@ if __name__ == '__main__':
   line_list.append('include ${RVX_HWLIB_HOME}/peripheral/core_peri_group/env/set_sim_env.mh')
   line_list.append('include ${RVX_HWLIB_HOME}/peripheral/common_peri_group/env/set_sim_env.mh')
   line_list.append('include ${RVX_HWLIB_HOME}/peripheral/external_peri_group/env/set_sim_env.mh')
+  line_list.append('include ${RVX_HWLIB_HOME}/peripheral/mmiox/env/set_sim_env.mh')
   
   num_main_core = 0
   for define_name in define_dict.keys():

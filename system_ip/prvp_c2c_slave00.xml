@@ -75,18 +75,20 @@
       <port>input</port>
       <comm_type>external</comm_type>
     </signal>
-    <signal>
-      <name>c2cs00_sdo</name>
-      <width>4</width>
-      <port>output</port>
+
+    <tristate>
+      <name>c2cs00_dq</name>
+      <library_name>tristate_od</library_name>
+      <parameter>
+        <id>bw_data</id>
+        <value>4</value>
+      </parameter>
+      <role>sender</role>
       <comm_type>external</comm_type>
-    </signal>
-    <signal>
-      <name>c2cs00_sdi</name>
-      <width>4</width>
-      <port>input</port>
-      <comm_type>external</comm_type>
-    </signal>
+      <sync>clk_axi</sync>
+      <init>rstnn_axi</init>
+    </tristate>
+
 	</dec_ip>
 </rvx>
 

@@ -35,6 +35,7 @@ if __name__ == '__main__':
   line_list.append('source ${RVX_HWLIB_HOME}/peripheral/core_peri_group/env/add_syn_source.tcl')
   line_list.append('source ${RVX_HWLIB_HOME}/peripheral/common_peri_group/env/add_syn_source.tcl')
   line_list.append('source ${RVX_HWLIB_HOME}/peripheral/external_peri_group/env/add_syn_source.tcl')
+  line_list.append('source ${RVX_HWLIB_HOME}/peripheral/mmiox/env/add_syn_source.tcl')
 
   num_main_core = 0
   for define_name in define_dict.keys():

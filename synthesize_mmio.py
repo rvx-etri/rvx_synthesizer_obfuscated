@@ -52,10 +52,21 @@ def generate_comment_xml_elemenet(text):
   xml_element.text = str(text)
   return xml_element
 
-def divide_value_list(text):
+def divide_value_list(text:str):
   unassigned_list = [] 
   assigned_list = []
-  for i, assigned_value in enumerate(text.split(',')):
+  modified_list = []
+  for value in text.split(','):
+    if '*' in value:
+      assert ':' not in value, value
+      value, size = value.split('*')
+      size = int(size)
+      assert size < 100, size
+      for i in range(size):
+        modified_list.append(f'{value}_{i:03}')
+    else:
+      modified_list.append(value)
+  for i, assigned_value in enumerate(modified_list):
     if i==0:
       is_assigned = True if ':' in assigned_value else False
     assign_info = assigned_value.split(':')
@@ -630,15 +641,15 @@ class IpMemorymapOffset():
         port_list.append(f'{signal_name}')
       elif type=='general':
         port_list.append(f'{signal_name}_re')
-        port_list.append(f'{signal_name}_input')
+        port_list.append(f'{signal_name}_rdata')
         port_list.append(f'{signal_name}_we')
-        port_list.append(f'{signal_name}_output')
+        port_list.append(f'{signal_name}_wdata')
       elif type=='read':
         port_list.append(f'{signal_name}_re')
-        port_list.append(f'{signal_name}_input')
+        port_list.append(f'{signal_name}_rdata')
       elif type=='write':
         port_list.append(f'{signal_name}_we')
-        port_list.append(f'{signal_name}_output')
+        port_list.append(f'{signal_name}_wdata')
       elif type=='read_cmd' or type=='write_cmd' or type=='onehot_cmd':
         port_list.append(f'{signal_name}_{type}')
       elif type=='gpio':
@@ -678,15 +689,15 @@ class IpMemorymapOffset():
         port_list.append(f'{array_signal_name}_list')
       elif type=='general':
         port_list.append(f'{array_signal_name}_re_list')
-        port_list.append(f'{array_signal_name}_input_list')
+        port_list.append(f'{array_signal_name}_rdata_list')
         port_list.append(f'{array_signal_name}_we_list')
-        port_list.append(f'{array_signal_name}_output_list')
+        port_list.append(f'{array_signal_name}_wdata_list')
       elif type=='read':
         port_list.append(f'{array_signal_name}_re_list')
-        port_list.append(f'{array_signal_name}_input_list')
+        port_list.append(f'{array_signal_name}_rdata_list')
       elif type=='write':
         port_list.append(f'{array_signal_name}_we_list')
-        port_list.append(f'{array_signal_name}_output_list')
+        port_list.append(f'{array_signal_name}_wdata_list')
       elif type=='read_cmd' or type=='write_cmd' or type=='onehot_cmd':
         port_list.append(f'{array_signal_name}_{type}_list')
       elif type=='gpio':
@@ -726,15 +737,15 @@ class IpMemorymapOffset():
         line_list.append(f'input wire [{bitwidth_name}-1:0] {signal_name};')
       elif type=='general':
         line_list.append(f'output wire {signal_name}_re;')
-        line_list.append(f'input wire [{bitwidth_name}-1:0] {signal_name}_input;')
+        line_list.append(f'input wire [{bitwidth_name}-1:0] {signal_name}_rdata;')
         line_list.append(f'output wire {signal_name}_we;')
-        line_list.append(f'output wire [{bitwidth_name}-1:0] {signal_name}_output;')
+        line_list.append(f'output wire [{bitwidth_name}-1:0] {signal_name}_wdata;')
       elif type=='read':
         line_list.append(f'output wire {signal_name}_re;')
-        line_list.append(f'input wire [{bitwidth_name}-1:0] {signal_name}_input;')
+        line_list.append(f'input wire [{bitwidth_name}-1:0] {signal_name}_rdata;')
       elif type=='write':
         line_list.append(f'output wire {signal_name}_we;')
-        line_list.append(f'output wire [{bitwidth_name}-1:0] {signal_name}_output;')
+        line_list.append(f'output wire [{bitwidth_name}-1:0] {signal_name}_wdata;')
       elif type=='read_cmd' or type=='write_cmd':
         line_list.append(f'output wire {signal_name}_{type};')
       elif type=='onehot_cmd':
@@ -786,15 +797,15 @@ class IpMemorymapOffset():
         line_list.append(f'input wire [({bitwidth_name})*({array_size_name})-1:0] {array_signal_name}_list;')
       elif type=='general':
         line_list.append(f'output wire [{array_size_name}-1:0] {array_signal_name}_re_list;')
-        line_list.append(f'input wire [({bitwidth_name})*({array_size_name})-1:0] {array_signal_name}_input_list;')
+        line_list.append(f'input wire [({bitwidth_name})*({array_size_name})-1:0] {array_signal_name}_rdata_list;')
         line_list.append(f'output wire [{array_size_name}-1:0] {array_signal_name}_we_list;')
-        line_list.append(f'output wire [({bitwidth_name})*({array_size_name})-1:0] {array_signal_name}_output_list;')
+        line_list.append(f'output wire [({bitwidth_name})*({array_size_name})-1:0] {array_signal_name}_wdata_list;')
       elif type=='read':
         line_list.append(f'output wire [{array_size_name}-1:0] {array_signal_name}_re_list;')
-        line_list.append(f'input wire [({bitwidth_name})*({array_size_name})-1:0] {array_signal_name}_input_list;')
+        line_list.append(f'input wire [({bitwidth_name})*({array_size_name})-1:0] {array_signal_name}_rdata_list;')
       elif type=='write':
         line_list.append(f'output wire [{array_size_name}-1:0] {array_signal_name}_we_list;')
-        line_list.append(f'output wire [({bitwidth_name})*({array_size_name})-1:0] {array_signal_name}_output_list;')
+        line_list.append(f'output wire [({bitwidth_name})*({array_size_name})-1:0] {array_signal_name}_wdata_list;')
       elif type=='read_cmd' or type=='write_cmd' or type=='onehot_cmd':
         line_list.append(f'output wire [{array_size_name}-1:0] {array_signal_name}_{type}_list;')
       elif type=='gpio':
@@ -820,9 +831,9 @@ class IpMemorymapOffset():
     # signal
     for submodule_name, mmio_name, signal_name, array_signal_name, bitwidth, type, has_readyin, fifo_depth, default_value_type in mmio_list:
       line_list.append(f'reg signal_{signal_name}_re;')
-      line_list.append(f'wire [BW_DATA-1:0] signal_{signal_name}_input;')
+      line_list.append(f'wire [BW_DATA-1:0] signal_{signal_name}_rdata;')
       line_list.append(f'reg signal_{signal_name}_we;')
-      line_list.append(f'wire [BW_DATA-1:0] signal_{signal_name}_output;')
+      line_list.append(f'wire [BW_DATA-1:0] signal_{signal_name}_wdata;')
       line_list.append(f'wire signal_{signal_name}_readyin;')
       if type=='gpio':
         line_list.append(f'wire [`BW_GPIO_VALUE-1:0] signal_{signal_name}_user_pinout = 0;')
@@ -847,7 +858,7 @@ class IpMemorymapOffset():
     line_list.append((template_dir/'mmio.03.vh').read_text())
     #
     for submodule_name, mmio_name, signal_name, array_signal_name, bitwidth, type, has_readyin, fifo_depth, default_value_type in mmio_list:
-      line_list.append(f'assign signal_{signal_name}_output = $unsigned(rpwdata);')    
+      line_list.append(f'assign signal_{signal_name}_wdata = $unsigned(rpwdata);')    
     #
     line_list.append('')
     line_list.append('always@(*)');
@@ -860,7 +871,7 @@ class IpMemorymapOffset():
       line_list.append('')
       line_list.append(f'\tsignal_{signal_name}_re = 0;')
       line_list.append(f'\tsignal_{signal_name}_we = 0;')
-      #line_list.append(f'output reg [{bitwidth}-1:0] signal_{signal_name}_output;')
+      #line_list.append(f'output reg [{bitwidth}-1:0] signal_{signal_name}_wdata;')
     line_list.append('')
     line_list.append('\tif(rpsel==1\'b 1)');
     line_list.append('\tbegin');
@@ -873,7 +884,7 @@ class IpMemorymapOffset():
       line_list.append('\t\t\tbegin');
       line_list.append(f'\t\t\t\tsignal_{signal_name}_re = read_request_from_bus;')
       line_list.append(f'\t\t\t\tsignal_{signal_name}_we = write_request_from_bus;')
-      line_list.append(f'\t\t\t\tman_rprdata = $unsigned(signal_{signal_name}_input);')
+      line_list.append(f'\t\t\t\tman_rprdata = $unsigned(signal_{signal_name}_rdata);')
       line_list.append(f'\t\t\t\trpready = signal_{signal_name}_readyin;')
       line_list.append('\t\t\tend');
     line_list.append('\t\t\tdefault:');
@@ -900,9 +911,9 @@ class IpMemorymapOffset():
         line_list.append('\tif(rstnn==0)');
         line_list.append(f'\t\treg_{signal_name} <= {default_value};');
         line_list.append(f'\telse if (signal_{signal_name}_we==1\'b 1)');
-        line_list.append(f'\t\treg_{signal_name} <= signal_{signal_name}_output;');
+        line_list.append(f'\t\treg_{signal_name} <= signal_{signal_name}_wdata;');
         line_list.append('end');
-        line_list.append(f'assign signal_{signal_name}_input = reg_{signal_name};');
+        line_list.append(f'assign signal_{signal_name}_rdata = reg_{signal_name};');
       elif type=='read_reg':
         line_list.append(f'// {signal_name}')
         if default_value_type=='define':
@@ -929,7 +940,7 @@ class IpMemorymapOffset():
         assign_list.append(('clear',f'1\'b 0'))
         assign_list.append(('enable',f'1\'b 1'))
         assign_list.append(('mmio_re',f'signal_{signal_name}_re'))
-        assign_list.append(('mmio_rdata',f'signal_{signal_name}_input'))
+        assign_list.append(('mmio_rdata',f'signal_{signal_name}_rdata'))
         assign_list.append(('wide_data_in',f'reg_{signal_name}'))
         line_list.append(',\n'.join([f'\t.{x}({y})' for x, y in assign_list]))
         line_list.append(');');
@@ -960,9 +971,9 @@ class IpMemorymapOffset():
         assign_list.append(('clear',f'1\'b 0'))
         assign_list.append(('enable',f'1\'b 1'))
         assign_list.append(('mmio_re',f'signal_{signal_name}_re'))
-        assign_list.append(('mmio_rdata',f'signal_{signal_name}_input'))
+        assign_list.append(('mmio_rdata',f'signal_{signal_name}_rdata'))
         assign_list.append(('mmio_we',f'signal_{signal_name}_we'))
-        assign_list.append(('mmio_wdata',f'signal_{signal_name}_output'))
+        assign_list.append(('mmio_wdata',f'signal_{signal_name}_wdata'))
         assign_list.append(('wide_data_out',f'reg_{signal_name}'))
         line_list.append(',\n'.join([f'\t.{x}({y})' for x, y in assign_list]))
         line_list.append(');');
@@ -982,9 +993,9 @@ class IpMemorymapOffset():
         assign_list.append(('clk','clk'))
         assign_list.append(('rstnn','rstnn'))
         assign_list.append(('rwenable',f'signal_{signal_name}_we'))
-        assign_list.append(('rwdata',f'signal_{signal_name}_output'))
+        assign_list.append(('rwdata',f'signal_{signal_name}_wdata'))
         assign_list.append(('rrenable',f'signal_{signal_name}_re'))
-        assign_list.append(('rrdata',f'signal_{signal_name}_input'))
+        assign_list.append(('rrdata',f'signal_{signal_name}_rdata'))
         assign_list.append(('ruser_pinout',f'signal_{signal_name}_user_pinout'))
         assign_list.append(('ruser_pinin',''))
         assign_list.append(('rinterrupt',f'{signal_name}_sinterrupt'))
@@ -1036,16 +1047,16 @@ class IpMemorymapOffset():
 
         if type=='wfifo':
           assign_list.append((f'fifo_{signal_name}_wrequest',f'signal_{signal_name}_we'))
-          assign_list.append((f'fifo_{signal_name}_wdata',f'signal_{signal_name}_output'))
-          assign_list.append((f'signal_{signal_name}_input',f'fifo_{signal_name}_wnum'))
+          assign_list.append((f'fifo_{signal_name}_wdata',f'signal_{signal_name}_wdata'))
+          assign_list.append((f'signal_{signal_name}_rdata',f'fifo_{signal_name}_wnum'))
           assign_list.append((f'fifo_{signal_name}_rrequest',f'{signal_name}_rrequest'))
           assign_list.append((f'{signal_name}_rdata',f'fifo_{signal_name}_rdata'))
         elif type=='rfifo':
           assign_list.append((f'fifo_{signal_name}_wrequest',f'{signal_name}_wrequest'))
           assign_list.append((f'fifo_{signal_name}_wdata',f'{signal_name}_wdata'))
           assign_list.append((f'fifo_{signal_name}_rrequest',f'signal_{signal_name}_re'))
-          assign_list.append((f'signal_{signal_name}_input',f'fifo_{signal_name}_rdata'))
-          assign_list.append((f'signal_{signal_name}_valid_num_input',f'fifo_{signal_name}_rnum'))
+          assign_list.append((f'signal_{signal_name}_rdata',f'fifo_{signal_name}_rdata'))
+          assign_list.append((f'signal_{signal_name}_valid_num_rdata',f'fifo_{signal_name}_rnum'))
         line_list.append('\n'.join([f'assign {x} = {y};' for x, y in assign_list]))
       elif type=='rfifo_valid_num':
         pass
@@ -1059,25 +1070,25 @@ class IpMemorymapOffset():
         line_list.append(f'assign reg_{signal_name} = {signal_name};')
       elif type=='general':
         line_list.append(f'assign {signal_name}_re = signal_{signal_name}_re;')
-        line_list.append(f'assign signal_{signal_name}_input = {signal_name}_input;')
+        line_list.append(f'assign signal_{signal_name}_rdata = {signal_name}_rdata;')
         line_list.append(f'assign {signal_name}_we = signal_{signal_name}_we;')
-        line_list.append(f'assign {signal_name}_output = signal_{signal_name}_output;')
+        line_list.append(f'assign {signal_name}_wdata = signal_{signal_name}_wdata;')
       elif type=='read':
         line_list.append(f'assign {signal_name}_re = signal_{signal_name}_re;')
-        line_list.append(f'assign signal_{signal_name}_input = {signal_name}_input;')
+        line_list.append(f'assign signal_{signal_name}_rdata = {signal_name}_rdata;')
       elif type=='write':
-        line_list.append(f'assign signal_{signal_name}_input = 0;')
+        line_list.append(f'assign signal_{signal_name}_rdata = 0;')
         line_list.append(f'assign {signal_name}_we = signal_{signal_name}_we;')
-        line_list.append(f'assign {signal_name}_output = signal_{signal_name}_output;')
+        line_list.append(f'assign {signal_name}_wdata = signal_{signal_name}_wdata;')
       elif type=='read_cmd':
         line_list.append(f'assign {signal_name}_{type} = signal_{signal_name}_re;')
-        line_list.append(f'assign signal_{signal_name}_input = 0;')
+        line_list.append(f'assign signal_{signal_name}_rdata = 0;')
       elif type=='write_cmd':
         line_list.append(f'assign {signal_name}_{type} = signal_{signal_name}_we;')
-        line_list.append(f'assign signal_{signal_name}_input = 0;')
+        line_list.append(f'assign signal_{signal_name}_rdata = 0;')
       elif type=='onehot_cmd':
-        line_list.append(f'assign {signal_name}_{type} = signal_{signal_name}_we? signal_{signal_name}_output : 0;')
-        line_list.append(f'assign signal_{signal_name}_input = 0;')
+        line_list.append(f'assign {signal_name}_{type} = signal_{signal_name}_we? signal_{signal_name}_wdata : 0;')
+        line_list.append(f'assign signal_{signal_name}_rdata = 0;')
       if has_readyin:
         line_list.append(f'assign signal_{signal_name}_readyin = {signal_name}_readyin;')
       else:
@@ -1099,24 +1110,24 @@ class IpMemorymapOffset():
           index = element_name[len(array_signal_name):]
           line_list.append('')
           line_list.append(f'assign {array_signal_name}_re_list[{index}] = signal_{element_name}_re;')
-          line_list.append(f'assign signal_{element_name}_input = {array_signal_name}_input_list[({bitwidth})*(({index})+1)-1-:{bitwidth}];')
+          line_list.append(f'assign signal_{element_name}_rdata = {array_signal_name}_rdata_list[({bitwidth})*(({index})+1)-1-:{bitwidth}];')
           line_list.append(f'assign {array_signal_name}_we_list[{index}] = signal_{element_name}_we;')
-          line_list.append(f'assign {array_signal_name}_output_list[({bitwidth})*(({index})+1)-1-:{bitwidth}] = signal_{element_name}_output;')
+          line_list.append(f'assign {array_signal_name}_wdata_list[({bitwidth})*(({index})+1)-1-:{bitwidth}] = signal_{element_name}_wdata;')
       elif type=='read':
         for element_name in element_list:
           assert element_name[:len(array_signal_name)]==array_signal_name, element_name
           index = element_name[len(array_signal_name):]
           line_list.append('')
           line_list.append(f'assign {array_signal_name}_re_list[{index}] = signal_{element_name}_re;')
-          line_list.append(f'assign signal_{element_name}_input = {array_signal_name}_input_list[({bitwidth})*(({index})+1)-1-:{bitwidth}];')
+          line_list.append(f'assign signal_{element_name}_rdata = {array_signal_name}_rdata_list[({bitwidth})*(({index})+1)-1-:{bitwidth}];')
       elif type=='write':
         for element_name in element_list:
           assert element_name[:len(array_signal_name)]==array_signal_name, element_name
           index = element_name[len(array_signal_name):]
           line_list.append('')
-          line_list.append(f'assign signal_{element_name}_input = 0;')
+          line_list.append(f'assign signal_{element_name}_rdata = 0;')
           line_list.append(f'assign {array_signal_name}_we_list[{index}] = signal_{element_name}_we;')
-          line_list.append(f'assign {array_signal_name}_output_list[({bitwidth})*(({index})+1)-1-:{bitwidth}] = signal_{element_name}_output;')
+          line_list.append(f'assign {array_signal_name}_wdata_list[({bitwidth})*(({index})+1)-1-:{bitwidth}] = signal_{element_name}_wdata;')
       elif type=='read_cmd' or type=='write_cmd' or type=='onehot_cmd':
         for element_name in element_list:
           assert element_name[:len(array_signal_name)]==array_signal_name, element_name

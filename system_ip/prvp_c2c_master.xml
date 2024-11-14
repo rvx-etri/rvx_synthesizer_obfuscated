@@ -73,18 +73,20 @@
       <port>output</port>
       <comm_type>external</comm_type>
     </signal>
-    <signal>
-      <name>c2cm_sdo</name>
-      <width>4</width>
-      <port>output</port>
+
+    <tristate>
+      <name>c2cm_dq</name>
+      <library_name>tristate_od</library_name>
+      <parameter>
+        <id>bw_data</id>
+        <value>4</value>
+      </parameter>
+      <role>sender</role>
       <comm_type>external</comm_type>
-    </signal>
-    <signal>
-      <name>c2cm_sdi</name>
-      <width>4</width>
-      <port>input</port>
-      <comm_type>external</comm_type>
-    </signal>
+      <sync>clk_apb</sync>
+      <init>rstnn_apb</init>
+    </tristate>
+
 	</dec_ip>
 </rvx>
 

@@ -272,6 +272,19 @@ end
 `endif
 
 /////////
+// C2C //
+/////////
+
+`ifdef SIMULATE_C2C_SELF
+
+assign i_platform.c2cs00_csn = i_platform.c2cm_csn[0];
+assign i_platform.c2cs00_clk = i_platform.c2cm_clk;
+assign i_platform.tristate_buffer_for_c2cs00_dq_rival_list = i_platform.tristate_buffer_for_c2cm_dq_roval_list;
+assign i_platform.tristate_buffer_for_c2cm_dq_rival_list = i_platform.tristate_buffer_for_c2cs00_dq_roval_list;
+
+`endif
+
+/////////
 // I2S //
 /////////
 

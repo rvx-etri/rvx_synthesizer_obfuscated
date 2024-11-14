@@ -98,14 +98,12 @@
 			<name>spi_common_sclk</name>
 			<width>1</width>
 			<port>output</port>
-			<user_available/>
 		</signal>
 
 		<signal>
 			<name>spi_common_sdq0</name>
 			<width>1</width>
 			<port>output</port>
-			<user_available/>
 		</signal>
 
 		<signal>
