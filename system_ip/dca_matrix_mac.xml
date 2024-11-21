@@ -10,7 +10,7 @@
 
     <def_parameter>
 			<name>MA_BW_DATA</name>
-			<value>32</value>
+			<value>128</value>
     </def_parameter>
     <def_parameter>
 			<name>MA_HAS_BURDEN</name>
@@ -23,7 +23,7 @@
 
     <def_parameter>
 			<name>MB_BW_DATA</name>
-			<value>32</value>
+			<value>128</value>
     </def_parameter>
     <def_parameter>
 			<name>MB_HAS_BURDEN</name>
@@ -36,7 +36,7 @@
 
     <def_parameter>
 			<name>MC_BW_DATA</name>
-			<value>32</value>
+			<value>128</value>
     </def_parameter>
     <def_parameter>
 			<name>MC_HAS_BURDEN</name>
@@ -57,12 +57,12 @@
     </def_parameter>
 
     <def_parameter>
-			<name>MATRIX_SIZE_CONFIG</name>
+			<name>MATRIX_SIZE_PARA</name>
 			<value>8</value>
     </def_parameter>
     <def_parameter>
-			<name>TENSOR_CONFIG</name>
-			<value>32</value>
+			<name>TENSOR_PARA</name>
+			<value>0</value>
 		</def_parameter>
 
 		<signal>

@@ -91,5 +91,5 @@ class ConsistencyChecker():
     if is_new:
       self.db[key] = value
     else:
-      assert (value==stored)
+      assert (value==stored), (value, stored)
     return is_new
