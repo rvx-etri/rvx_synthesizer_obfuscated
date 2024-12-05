@@ -1,21 +1,22 @@
-				endcase
-			end
-			direct_memory_load = 0;
-		`else
-			$display("[JTAG:INFO] slow SRAM load start");
-			write_memory_using_jtag(addr, CHANGE_ENDIAN_HEX2MAN(32,`MEMORY_ENDIAN,hex_memory[0]));
-			print_memory_using_jtag(addr);
-			for(i=0; i<`SRAM_HEX_SIZE; i=i+1)
-			begin
-				if((i&32'h FF)==32'h FF)
-				begin
-					$display("[JTAG:INFO] slow SRAM load is processing... %8d", i);
-				end
-				write_memory_using_jtag(addr, CHANGE_ENDIAN_HEX2MAN(32,`MEMORY_ENDIAN,hex_memory[i]));
-				addr = addr + 4;
-			end
-		`endif
-		$display("[JTAG:INFO] SRAM load end");
+          endcase
+        end
+        direct_memory_load = 0;
+      `else
+        $display("[JTAG:INFO] slow SRAM load start");
+        write_memory_using_jtag(addr, CHANGE_ENDIAN_HEX2MAN(32,`MEMORY_ENDIAN,hex_memory[0]));
+        print_memory_using_jtag(addr);
+        for(i=0; i<`SRAM_HEX_SIZE; i=i+1)
+        begin
+          if((i&32'h FF)==32'h FF)
+          begin
+            $display("[JTAG:INFO] slow SRAM load is processing... %8d", i);
+          end
+          write_memory_using_jtag(addr, CHANGE_ENDIAN_HEX2MAN(32,`MEMORY_ENDIAN,hex_memory[i]));
+          addr = addr + 4;
+        end
+      `endif
+      $display("[JTAG:INFO] SRAM load end");
+    `endif
 
 		// dram
 		`ifdef USE_LARGE_RAM

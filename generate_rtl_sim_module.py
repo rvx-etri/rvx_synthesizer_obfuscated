@@ -105,7 +105,8 @@ if __name__ == '__main__':
   port_list += ['pjtag_rtck','pjtag_rtrstnn','pjtag_rtms','pjtag_rtdi','pjtag_rtdo']
   for clk_name, clock_speed in external_clk_list:
     port_list.append(clk_name)
-    port_list.append(f'{clk_name}_pair')
+    if clk_name.startswith('external_clk_'):
+      port_list.append(f'{clk_name}_pair')
 
   if 'INCLUDE_BOOT_MODE' in define_dict:
     port_list += ['boot_mode']
@@ -136,15 +137,16 @@ if __name__ == '__main__':
   # jtag
   line_list.append('')
   line_list.append((template_dir/'sim_jtag_prolog.vh').read_text())
-  for i in range(0, int(define_dict['NUM_SRAM_CELL'])):
-    sram_text = (template_dir/'sim_jtag_sram_def.vh').read_text()
-    sram_text = sram_text.replace('\"${CELL_INDEX}\"', str(i))
-    line_list.append(sram_text)
-  line_list.append('				case(cell_index)')
-  for i in range(0, int(define_dict['NUM_SRAM_CELL'])):
-    sram_text = (template_dir/'sim_jtag_sram_assign.vh').read_text()
-    sram_text = sram_text.replace('\"${CELL_INDEX}\"', str(i))
-    line_list.append(sram_text)
+  if 'INCLUDE_SMALL_RAM' in define_dict:
+    for i in range(0, int(define_dict['NUM_SRAM_CELL'])):
+      sram_text = (template_dir/'sim_jtag_sram_def.vh').read_text()
+      sram_text = sram_text.replace('\"${CELL_INDEX}\"', str(i))
+      line_list.append(sram_text)
+    line_list.append('          case(cell_index)')
+    for i in range(0, int(define_dict['NUM_SRAM_CELL'])):
+      sram_text = (template_dir/'sim_jtag_sram_assign.vh').read_text()
+      sram_text = sram_text.replace('\"${CELL_INDEX}\"', str(i))
+      line_list.append(sram_text)
   line_list.append((template_dir/'sim_jtag_epilog.vh').read_text())
 
   # sim_user_region

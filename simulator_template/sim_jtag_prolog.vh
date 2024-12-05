@@ -154,19 +154,17 @@ begin
 		wait(app_load_request==1);
 		#1
 		// sram
-		`ifndef USE_SMALL_RAM
-			$finish;
-		`endif
-		$readmemh(`SRAM_HEX_FILE, hex_memory);
-		addr = `SMALL_RAM_BASEADDR;
-		`ifdef FAST_APP_LOAD
-			direct_memory_load = 1;
-			num_word_in_line = `SRAM_CELL_VARIABLE_WIDTH/`BW_WORD;
-			$display("[JTAG:INFO] fast SRAM load start");
-			for(i=0; i<`SRAM_HEX_SIZE; i=i+1)
-			begin
-				word_index = `SRAM_OFFSET + i;
-				cell_index = word_index / `SRAM_CELL_SIZE_IN_WORD;
-				word_index_in_cell = word_index % `SRAM_CELL_SIZE_IN_WORD;
-				line_index_in_cell = word_index_in_cell / num_word_in_line;
-				word_index_in_line = word_index_in_cell % num_word_in_line;
+		`ifdef USE_SMALL_RAM
+      $readmemh(`SRAM_HEX_FILE, hex_memory);
+      addr = `SMALL_RAM_BASEADDR;
+      `ifdef FAST_APP_LOAD
+        direct_memory_load = 1;
+        num_word_in_line = `SRAM_CELL_VARIABLE_WIDTH/`BW_WORD;
+        $display("[JTAG:INFO] fast SRAM load start");
+        for(i=0; i<`SRAM_HEX_SIZE; i=i+1)
+        begin
+          word_index = `SRAM_OFFSET + i;
+          cell_index = word_index / `SRAM_CELL_SIZE_IN_WORD;
+          word_index_in_cell = word_index % `SRAM_CELL_SIZE_IN_WORD;
+          line_index_in_cell = word_index_in_cell / num_word_in_line;
+          word_index_in_line = word_index_in_cell % num_word_in_line;
