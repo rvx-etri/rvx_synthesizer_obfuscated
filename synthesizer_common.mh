@@ -1,6 +1,6 @@
 LIBRARY_LIST = ./rvx_env.xml ./system_ip ./general_ip ./interface ./linker_template ./simulator_template ./idip_template ./mmio_template ./pact ./rom
 PYTHON_SOURCE_LIST  = ./rvx_re_util.py ./rvx_util.py ./verilog_generator.py ./c_generator.py ./tcl_generator.py ./configure_template.py ./xml_util.py ./generate_copyright.py
-PYTHON_SOURCE_LIST += ./xml_converter.py ./generate_sw_env.py ./generate_rtl_sim_env.py ./generate_rtl_syn_env.py ./generate_rtl_sim_module.py ./generate_module.py ./synthesize_mmio.py ./generate_pact_component.py ./synthesize_rom.py ./generate_dca.py
+PYTHON_SOURCE_LIST += ./xml_converter.py ./generate_sw_env.py ./generate_rtl_sim_env.py ./generate_rtl_syn_env.py ./generate_rtl_sim_module.py ./generate_module.py ./synthesize_mmio.py ./generate_pact_component.py ./synthesize_rom.py ./generate_ip_instance_info.py
 
 -include ../rvx_python_config.mh
 
@@ -21,6 +21,9 @@ gen_rtl_sim_module:
 
 gen_module:
 	@${PYTHON3_CMD} generate_module.py -xml ${INPUT_XML} -t ./idip_template -it ${IMP_TYPE} -tic ${TARGET_IMP_CLASS} -o ${OUTPUT_DIR}
+
+gen_ip_instance_info:
+	@${PYTHON3_CMD} generate_ip_instance_info.py -i ${INPUT_XML} -o ${OUTPUT_DIR}
 
 gen_mmio:
 	@${PYTHON3_CMD} synthesize_mmio.py -i ${INPUT_XML} -o ${OUTPUT_DIR} -op ${OPERATION}
@@ -43,9 +46,6 @@ gen_rom:
 
 gen_adc:
 	@${PYTHON3_CMD} generate_adc.py -i ${ADC_XML_LIST} -c ${COMPONENT} -o ${OUTPUT_DIR}
-
-gen_dca:
-	@${PYTHON3_CMD} generate_dca.py -i ${INPUT_XML} -o ${OUTPUT_DIR}
 
 generate_pact_component:
 	@${PYTHON3_CMD} generate_pact_component.py -op ${OP} -xml ${INPUT_XML} -t ./pact -o ${OUTPUT_DIR}

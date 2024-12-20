@@ -107,7 +107,7 @@
 
     <interface>
 			<name>control</name>
-			<library_name>mmiox</library_name>
+			<library_name>mmiox1</library_name>
 			<role>receiver</role>
       <comm_type>special</comm_type>
       <parameter>
