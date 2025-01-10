@@ -1,9 +1,11 @@
 <?xml version="1.0" ?>
 <rvx>
   <dec_ip>
-    <name>dca_top_module_template</name>
-
-    <include_header>munoc_network_include</include_header>
+    <name>dca_member_module_template</name>
+    <def_parameter>
+      <name>BW_ADDR</name>
+      <value>32</value>
+    </def_parameter>
 
     <signal>
       <name>clk_core</name>

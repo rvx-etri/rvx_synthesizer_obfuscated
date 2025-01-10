@@ -81,6 +81,17 @@ def round_up_power2(value: int):
     result <<=1
   return result
 
+def check_if_para_value_is_fixed(value:str):
+  result = False
+  try:
+    eval(value)
+    result = True
+  except:
+    pass
+  if '(' in value and ')' in value:
+    result = True
+  return result
+        
 class ConsistencyChecker():
   def __init__(self):
     self.db = {}

@@ -1,18 +1,19 @@
 <?xml version="1.0" ?>
 <rvx>
   <dec_ip>
-    <name>user_mlsu</name>
-    <hdl_name>USER_IP</hdl_name>
-
+    <name>matrix_lsu</name>
+    <hdl_name>ERVP_MATRIX_LSU</hdl_name>
+    <def_parameter>
+      <name>BW_AXI_ADDR</name>
+      <value>32</value>
+    </def_parameter>
     <def_parameter>
       <name>BW_AXI_DATA</name>
       <value>32</value>
-      <virtual/>
     </def_parameter>
     <def_parameter>
       <name>LSU_PARA</name>
       <value>0</value>
-      <virtual/>
     </def_parameter>
     <def_parameter>
       <name>BW_TENSOR_SCALAR</name>
@@ -23,12 +24,10 @@
       <value>4</value>
     </def_parameter>
 
-    <user_dependent/>
-
     <signal>
       <name>clk</name>
       <width>1</width>
-      <port>output</port>
+      <port>input</port>
     </signal>
 
     <signal>
@@ -37,23 +36,16 @@
       <port>input</port>
     </signal>
 
-    <reset_property>
-      <id>rstnn</id>
-      <type>asynch</type>
-      <type>negative</type>
-      <group>3</group>
-    </reset_property>
-
     <core>
       <sync>clk</sync>
       <init>rstnn</init>
     </core>
 
     <interface>
-      <name>no_name</name>
+      <name>ip_part</name>
       <library_name>mlsi</library_name>
       <hdl_prefix></hdl_prefix>
-      <role>sender</role>
+      <role>receiver</role>
       <comm_type>special</comm_type>
       <parameter>
         <id>bw_axi_data</id>
@@ -74,5 +66,32 @@
       <sync>clk</sync>
       <init>rstnn</init>
     </interface>
+
+    <interface>
+      <name>noc_part</name>
+      <library_name>xmi</library_name>
+      <hdl_prefix></hdl_prefix>
+      <role>sender</role>
+      <comm_type>special</comm_type>
+      <parameter>
+        <id>bw_addr</id>
+        <value>BW_AXI_ADDR</value>
+      </parameter>
+      <parameter>
+        <id>bw_data</id>
+        <value>BW_AXI_DATA</value>
+      </parameter>
+      <parameter>
+        <id>has_burden</id>
+        <value>1</value>
+      </parameter>
+      <parameter>
+        <id>bw_burden</id>
+        <value>1</value>
+      </parameter>
+      <sync>clk</sync>
+      <init>rstnn</init>
+    </interface>
+
   </dec_ip>
 </rvx>

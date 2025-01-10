@@ -1,123 +1,123 @@
 <?xml version="1.0" ?>
 <rvx>
-	<dec_ip>
+  <dec_ip>
     <name>dca_matrix_conv2d_mmiox_mlsu</name>
-		<hdl_name>DCA_MATRIX_CONV2D_MMIOX_MLSU</hdl_name>
-		<def_parameter>
-			<name>BW_ADDR</name>
-			<value>32</value>
+    <hdl_name>DCA_MATRIX_CONV2D_MMIOX_MLSU</hdl_name>
+    <def_parameter>
+      <name>BW_ADDR</name>
+      <value>32</value>
     </def_parameter>
 
     <def_parameter>
-			<name>MA_BW_DATA</name>
-			<value>128</value>
+      <name>MA_BW_DATA</name>
+      <value>128</value>
     </def_parameter>
     <def_parameter>
-			<name>MB_BW_DATA</name>
-			<value>128</value>
+      <name>MB_BW_DATA</name>
+      <value>128</value>
     </def_parameter>
     <def_parameter>
-			<name>MC_BW_DATA</name>
-			<value>128</value>
+      <name>MC_BW_DATA</name>
+      <value>128</value>
     </def_parameter>
 
     <def_parameter>
-			<name>INPUT_MATRIX_SIZE</name>
-			<value>14</value>
+      <name>INPUT_MATRIX_SIZE</name>
+      <value>14</value>
     </def_parameter>
     <def_parameter>
-			<name>KERNEL_MATRIX_SIZE</name>
-			<value>7</value>
+      <name>KERNEL_MATRIX_SIZE</name>
+      <value>7</value>
     </def_parameter>
     <def_parameter>
-			<name>OUTPUT_MATRIX_SIZE</name>
-			<value>8</value>
+      <name>OUTPUT_MATRIX_SIZE</name>
+      <value>8</value>
     </def_parameter>
     <def_parameter>
-			<name>TENSOR_PARA</name>
-			<value>0</value>
-		</def_parameter>
+      <name>TENSOR_PARA</name>
+      <value>0</value>
+    </def_parameter>
 
     <def_parameter>
-			<name>BW_CONFIG</name>
-			<value>1</value>
-		</def_parameter>
-    <def_parameter>
-			<name>BW_STATUS</name>
-			<value>32</value>
-      </def_parameter>
-    <def_parameter>
-			<name>BW_LOG</name>
-			<value>32</value>
+      <name>BW_CONFIG</name>
+      <value>1</value>
     </def_parameter>
     <def_parameter>
-			<name>BW_INST</name>
-			<value>480</value>
+      <name>BW_STATUS</name>
+      <value>32</value>
     </def_parameter>
     <def_parameter>
-			<name>BW_INPUT</name>
-			<value>32</value>
+      <name>BW_LOG</name>
+      <value>32</value>
     </def_parameter>
     <def_parameter>
-			<name>BW_OUTPUT</name>
-			<value>32</value>
+      <name>BW_INST</name>
+      <value>480</value>
     </def_parameter>
     <def_parameter>
-			<name>CONFIG_DEFAULT_VALUE</name>
+      <name>BW_INPUT</name>
+      <value>32</value>
+    </def_parameter>
+    <def_parameter>
+      <name>BW_OUTPUT</name>
+      <value>32</value>
+    </def_parameter>
+    <def_parameter>
+      <name>CONFIG_DEFAULT_VALUE</name>
       <value>0</value>
       <virtual/>
     </def_parameter>
     <def_parameter>
-			<name>LOG_FIFO_DEPTH</name>
+      <name>LOG_FIFO_DEPTH</name>
       <value>0</value>
       <virtual/>
     </def_parameter>
-		<def_parameter>
-			<name>INST_FIFO_DEPTH</name>
+    <def_parameter>
+      <name>INST_FIFO_DEPTH</name>
       <value>4</value>
       <virtual/>
     </def_parameter>
     <def_parameter>
-			<name>INPUT_FIFO_DEPTH</name>
+      <name>INPUT_FIFO_DEPTH</name>
       <value>0</value>
       <virtual/>
     </def_parameter>
-		<def_parameter>
-			<name>OUTPUT_FIFO_DEPTH</name>
+    <def_parameter>
+      <name>OUTPUT_FIFO_DEPTH</name>
       <value>0</value>
       <virtual/>
     </def_parameter>
 
-		<signal>
-			<name>clk</name>
-			<width>1</width>
-			<port>input</port>
-			<comm_type>clk_dca_core</comm_type>
-		</signal>
+    <signal>
+      <name>clk</name>
+      <width>1</width>
+      <port>input</port>
+      <comm_type>clk_dca_core</comm_type>
+    </signal>
 
-		<signal>
-			<name>rstnn</name>
-			<width>1</width>
-			<port>input</port>
-		</signal>
+    <signal>
+      <name>rstnn</name>
+      <width>1</width>
+      <port>input</port>
+    </signal>
 
-		<reset_property>
-			<id>rstnn</id>
-			<type>asynch</type>
-			<type>negative</type>
-			<group>3</group>
-		</reset_property>
+    <reset_property>
+      <id>rstnn</id>
+      <type>asynch</type>
+      <type>negative</type>
+      <group>3</group>
+    </reset_property>
 
-		<core>
-			<sync>clk</sync>
-			<init>rstnn</init>
-		</core>
+    <core>
+      <sync>clk</sync>
+      <init>rstnn</init>
+    </core>
 
     <interface>
-			<name>control</name>
-			<library_name>mmiox1</library_name>
-			<role>receiver</role>
-      <comm_type>special</comm_type>
+      <name>control</name>
+      <library_name>mmiox1</library_name>
+      <role>receiver</role>
+      <comm_type>memory:all</comm_type>
       <parameter>
         <id>bw_config</id>
         <value>BW_CONFIG</value>
@@ -130,7 +130,7 @@
         <id>bw_log</id>
         <value>BW_LOG</value>
       </parameter>
-       <parameter>
+      <parameter>
         <id>bw_inst</id>
         <value>BW_INST</value>
       </parameter>
@@ -150,7 +150,7 @@
         <id>log_fifo_depth</id>
         <value>LOG_FIFO_DEPTH</value>
       </parameter>
-       <parameter>
+      <parameter>
         <id>inst_fifo_depth</id>
         <value>INST_FIFO_DEPTH</value>
       </parameter>
@@ -162,15 +162,15 @@
         <id>output_fifo_depth</id>
         <value>OUTPUT_FIFO_DEPTH</value>
       </parameter>
-			<sync>clk</sync>
-			<init>rstnn</init>
+      <sync>clk</sync>
+      <init>rstnn</init>
     </interface>
 
     <interface>
       <name>mi</name>
       <library_name>mlsi</library_name>
       <role>sender</role>
-      <comm_type>special</comm_type>
+      <comm_type>memory:data_c</comm_type>
       <parameter>
         <id>bw_axi_data</id>
         <value>MA_BW_DATA</value>
@@ -195,7 +195,7 @@
       <name>mk</name>
       <library_name>mlsi</library_name>
       <role>sender</role>
-      <comm_type>special</comm_type>
+      <comm_type>memory:data_c</comm_type>
       <parameter>
         <id>bw_axi_data</id>
         <value>MB_BW_DATA</value>
@@ -220,7 +220,7 @@
       <name>mo</name>
       <library_name>mlsi</library_name>
       <role>sender</role>
-      <comm_type>special</comm_type>
+      <comm_type>memory:data_c</comm_type>
       <parameter>
         <id>bw_axi_data</id>
         <value>MC_BW_DATA</value>
@@ -241,5 +241,5 @@
       <init>rstnn</init>
     </interface>
 
-	</dec_ip>
+  </dec_ip>
 </rvx>

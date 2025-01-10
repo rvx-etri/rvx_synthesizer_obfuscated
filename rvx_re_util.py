@@ -37,3 +37,23 @@ def get_define_list(define_pragma, file_name):
   re_define = re.compile(reexp_define,re.MULTILINE)
   define_list = re_define.findall(file_contents)
   return define_list
+
+def update_expr(text:str, identifier_dict:dict):
+  reexp_variable = memorize(exist_or_not(r'`')) + memorize(wordize(reexp_identifier))
+  re_variable = re.compile(reexp_variable)
+  def __convert(x):
+    is_define, identifier = x.groups()
+    if is_define:
+      result = is_define + identifier
+    else:
+      after = identifier_dict.get(identifier)
+      result = after if after else identifier
+    return result
+  
+  result = text
+  while 1:
+    before = result
+    result = re_variable.sub(__convert, before)
+    if result==before:
+      break
+  return result

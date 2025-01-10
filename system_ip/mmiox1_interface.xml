@@ -85,7 +85,7 @@
 			<name>mmio</name>
 			<library_name>apb</library_name>
 			<role>receiver</role>
-			<comm_type>memory:all</comm_type>
+			<comm_type>special</comm_type>
 			<memorymap>
 				<size>0x1000</size>
 			</memorymap>

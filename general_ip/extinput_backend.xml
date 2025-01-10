@@ -71,7 +71,7 @@
 			<name>control</name>
 			<library_name>mmiox1</library_name>
 			<role>receiver</role>
-      <comm_type>special</comm_type>
+      <comm_type>memory:all</comm_type>
       <parameter>
         <id>bw_config</id>
         <value>1</value>

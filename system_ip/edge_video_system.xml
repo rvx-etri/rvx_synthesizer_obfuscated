@@ -120,7 +120,7 @@
 			<name>vdma</name>
 			<library_name>axi</library_name>
 			<role>sender</role>
-			<comm_type>memory:data</comm_type>
+			<comm_type>memory:data_c</comm_type>
 			<parameter>
 				<id>bw_addr</id>
 				<value>BW_ADDR</value>
@@ -161,7 +161,7 @@
 			<name>vim</name>
 			<library_name>axi</library_name>
 			<role>sender</role>
-			<comm_type>memory:data</comm_type>
+			<comm_type>memory:data_c</comm_type>
 			<parameter>
 				<id>bw_addr</id>
 				<value>BW_ADDR</value>
@@ -182,7 +182,7 @@
 			<name>vom</name>
 			<library_name>axi</library_name>
 			<role>sender</role>
-			<comm_type>memory:data</comm_type>
+			<comm_type>memory:data_c</comm_type>
 			<parameter>
 				<id>bw_addr</id>
 				<value>BW_ADDR</value>
