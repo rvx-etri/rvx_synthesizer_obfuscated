@@ -61,8 +61,11 @@ if __name__ == '__main__':
   for hw in hwlib_special_list:
     name = hw.upper()
     if f'INCLUDE_{name}' in define_dict:
+      line_list.append(f'set {name}_USER_SOURCE_FILE ${{PLATFORM_DIR}}/user/{hw}/env/add_syn_source.tcl')
       line_list.append(f'set {name}_SOURCE_FILE ${{RVX_SPECIAL_IP_HOME}}/{hw}/env/add_syn_source.tcl')
-      line_list.append(f'if {{[file exist ${{{name}_SOURCE_FILE}}]}} {{')
+      line_list.append(f'if {{[file exist ${{{name}_USER_SOURCE_FILE}}]}} {{')
+      line_list.append(f'\tsource ${{{name}_USER_SOURCE_FILE}}')
+      line_list.append(f'}} else if {{[file exist ${{{name}_SOURCE_FILE}}]}} {{')
       line_list.append(f'\tsource ${{{name}_SOURCE_FILE}}')
       line_list.append('}')
 

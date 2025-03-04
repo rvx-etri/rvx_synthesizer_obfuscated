@@ -48,11 +48,11 @@
     </def_parameter>
     <def_parameter>
       <name>BW_INST</name>
-      <value>512</value>
+      <value>520</value>
     </def_parameter>
     <def_parameter>
       <name>BW_INPUT</name>
-      <value>CORE_OUTPUT_SIZE*32</value>
+      <value>CORE_INPUT_SIZE*32</value>
     </def_parameter>
     <def_parameter>
       <name>BW_OUTPUT</name>
