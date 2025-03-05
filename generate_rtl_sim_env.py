@@ -59,7 +59,15 @@ if __name__ == '__main__':
 
   for hw in hwlib_special_list:
     if f'INCLUDE_{hw.upper()}' in define_dict:
-      line_list.append(f'-include ${{RVX_SPECIAL_IP_HOME}}/{hw}/env/set_sim_env.mh')
+      line_list.append(f'{hw.upper()}_LOCAL_ENV_FILE := $(wildcard ${{PLATFORM_DIR}}/user/{hw}/env/set_sim_env.mh)')
+      line_list.append(f'{hw.upper()}_GLOBAL_ENV_FILE := $(wildcard ${{RVX_SPECIAL_IP_HOME}}/{hw}/env/set_sim_env.mh)')
+      line_list.append(f'ifdef {hw.upper()}_LOCAL_ENV_FILE')
+      line_list.append(f'\tinclude ${{{hw.upper()}_LOCAL_ENV_FILE}}')
+      line_list.append(f'else')
+      line_list.append(f'ifdef {hw.upper()}_GLOBAL_ENV_FILE')
+      line_list.append(f'\tinclude ${{{hw.upper()}_GLOBAL_ENV_FILE}}')
+      line_list.append(f'endif')
+      line_list.append(f'endif')
 
   for hw_list, relative_path in hwlib_exception_list:
     included = False
