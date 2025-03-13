@@ -34,7 +34,7 @@
       <name>clk</name>
       <width>1</width>
       <port>input</port>
-      <comm_type>clk_network</comm_type>
+      <comm_type>clk_ext_mram</comm_type>
     </signal>
 
     <signal>

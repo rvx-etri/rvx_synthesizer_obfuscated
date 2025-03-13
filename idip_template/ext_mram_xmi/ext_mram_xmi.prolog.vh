@@ -1,5 +1,6 @@
 `include "ervp_global.vh"
 `include "ervp_axi_define.vh"
+`include "sim_info.vh"
 `include "munoc_network_include.vh"
 
 module "${MODULE_NAME}"

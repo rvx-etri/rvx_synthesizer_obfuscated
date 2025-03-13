@@ -21,7 +21,7 @@
 	{
 		. = ALIGN(8);
 		PROVIDE( _fbss = . );
-		_bss_start = .;
+		_bss_start_ = .;
     *(.sbss .sbss.* .gnu.linkonce.sb.*)
     *(.scommon)
 		. = ALIGN(8);
@@ -34,5 +34,5 @@
 		*(.gnu.linkonce.b.*)
 		*(COMMON)
 		. = ALIGN(8);
-		_bss_end = NEXT(4);
+		_bss_end_ = NEXT(4);
 	} >"${MULTI_WRITE_MEMORY_REGION}"

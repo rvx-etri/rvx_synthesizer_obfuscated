@@ -1,7 +1,7 @@
 	.init	:
   {
-    _text_start = .;
-		_cacheable_start = .;
+    _text_start_ = .;
+		_cacheable_start_ = .;
 		*(.text.init)
 		. = ALIGN(8);
 		*(.init)
@@ -61,7 +61,7 @@
 		KEEP (*(EXCLUDE_FILE (*crtend.o *crtend?.o ) .dtors))
 		KEEP (*(SORT(.dtors.*)))
 		KEEP (*(.dtors))
-    _text_end = .;
+    _text_end_ = .;
 	} >"${TEXT_MEMORY_REGION}"
 
   .rodata	:
@@ -69,6 +69,7 @@
     *(.rdata)
     *(.rodata .rodata.*)
     *(.gnu.linkonce.r.*)
+    *(.non_volatile)
 		. = ALIGN(8);
   } >"${SINGLE_WRITE_MEMORY_REGION}"
 	
@@ -80,15 +81,18 @@
 		PROVIDE( _sp = . );
 	} >"${SINGLE_WRITE_MEMORY_REGION}"
 
-	.cached :
+  .bigdata_bss :
 	{
 		. = ALIGN("${DATA_ALIGN_SIZE}");
-		*(.cached)
-		*(.exclusive)
-  } >"${SINGLE_WRITE_MEMORY_REGION}"
+		_bigdata_bss_start_ = .;
+		*(.bigdata_bss)
+		_bigdata_bss_end_ = .;
+		_cacheable_end_ = NEXT("${DATA_ALIGN_SIZE}");
+	} >"${SINGLE_WRITE_MEMORY_REGION}"
 
 	.bigdata :
 	{
+    _backup_start_ = .;
 		. = ALIGN("${DATA_ALIGN_SIZE}");
 		*(.bigdata)
 	} >"${SINGLE_WRITE_MEMORY_REGION}"
@@ -99,11 +103,9 @@
 		*(.once)
 	} >"${SINGLE_WRITE_MEMORY_REGION}"
 
-	.bigdata_bss :
+  .cached :
 	{
 		. = ALIGN("${DATA_ALIGN_SIZE}");
-		_bigdata_bss_start = .;
-		*(.bigdata_bss)
-		_bigdata_bss_end = .;
-		_cacheable_end = NEXT("${DATA_ALIGN_SIZE}");
-	} >"${SINGLE_WRITE_MEMORY_REGION}"
+		*(.cached)
+		*(.exclusive)
+  } >"${SINGLE_WRITE_MEMORY_REGION}"
