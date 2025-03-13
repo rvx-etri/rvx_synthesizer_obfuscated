@@ -105,9 +105,14 @@ if __name__ == "__main__":
   if memory_status.use_large_ram:
     linker_file_list.append('link_memory_dram.ld')
   linker_file_list.append('link_section_prolog.ld')
-  linker_file_list += sram_section_list
+  if memory_status.use_small_ram:
+    linker_file_list.append('link_section_sram_start.ld')
+    linker_file_list += sram_section_list
+    linker_file_list.append('link_section_sram_end.ld')
   if memory_status.use_large_ram:
+    linker_file_list.append('link_section_dram_start.ld')
     linker_file_list += dram_section_list
+    linker_file_list.append('link_section_dram_end.ld')
   else:
     assert len(dram_section_list)==0
   linker_file_list.append('link_section_epilog.ld')
