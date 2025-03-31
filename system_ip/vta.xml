@@ -16,7 +16,7 @@
 			<name>clk</name>
 			<width>1</width>
 			<port>input</port>
-			<comm_type>clk_core</comm_type>
+			<comm_type>gclk_vta</comm_type>
 		</signal>
 
 		<signal>

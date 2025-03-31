@@ -53,32 +53,32 @@
 				<port>output</port>
       </signal>
       <signal>
-				<name>xlast</name>
+				<name>last</name>
 				<width>1</width>
 				<port>output</port>
       </signal>
       <signal>
-				<name>xwrite</name>
+				<name>write</name>
 				<width>1</width>
 				<port>output</port>
       </signal>
       <signal>
-				<name>xlen</name>
+				<name>len</name>
 				<width>bw_len</width>
 				<port>output</port>
 			</signal>
 			<signal>
-				<name>xsize</name>
+				<name>size</name>
 				<width>bw_size</width>
 				<port>output</port>
 			</signal>
 			<signal>
-				<name>xburst</name>
+				<name>burst</name>
 				<width>bw_burst</width>
 				<port>output</port>
       </signal>
       <signal>
-				<name>xwstrb</name>
+				<name>wstrb</name>
 				<width>bw_data/8</width>
 				<port>output</port>
       </signal>
@@ -113,17 +113,17 @@
 				<port>input</port>
       </signal>
       <signal>
-				<name>xlast</name>
+				<name>last</name>
 				<width>1</width>
 				<port>input</port>
       </signal>
       <signal>
-				<name>xwreply</name>
+				<name>wreply</name>
 				<width>1</width>
 				<port>input</port>
       </signal>
       <signal>
-				<name>xresp</name>
+				<name>resp</name>
 				<width>bw_resp</width>
 				<port>input</port>
 			</signal>

@@ -230,7 +230,7 @@
       </parameter>
       <parameter>
         <id>lsu_para</id>
-        <value>MAKE_LSU_WRITE_ONLY(LSU_PARA)</value>
+        <value>LSU_PARA</value>
       </parameter>
       <parameter>
         <id>bw_tensor_scalar</id>
