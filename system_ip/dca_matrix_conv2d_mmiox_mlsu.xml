@@ -52,7 +52,7 @@
     </def_parameter>
     <def_parameter>
       <name>BW_INST</name>
-      <value>480</value>
+      <value>512</value>
     </def_parameter>
     <def_parameter>
       <name>BW_INPUT</name>
