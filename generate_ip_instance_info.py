@@ -87,7 +87,53 @@ def generate_extinput(xml_root):
       
   return header_include_list, header_line_list, body_include_list, body_dec_list, body_construct_list, body_destruct_list, body_line_list
 
-def generate_dca(xml_root):
+def generate_dca_mru(xml_root):
+  header_include_list =[]
+  header_line_list =[]
+  body_include_list = []
+  body_dec_list = []
+  body_construct_list = []
+  body_destruct_list = []
+  body_line_list = []
+  
+  for ip_instance_xml in xml_root.findall('ip_instance'):
+    ip_instance_name = ip_instance_xml.find('name').text
+    library_name = ip_instance_xml.find('library_name').text
+    if library_name.startswith('dca_mru') and 'mmiox' in library_name:
+      library_core_name = get_library_core_name(library_name)
+      header_include_list.append(f'{library_core_name}.h')
+      info_struct_name = f'{library_core_name}_hwinfo_t'
+      info_variable_name = f'{ip_instance_name}_info'
+      info_static_variable_name = f'{info_variable_name}_static'
+      para_struct_name = f'{library_core_name}_hwpara_t'
+      para_variable_name = f'{info_variable_name}_para'
+      for interface_xml in ip_instance_xml.findall('interface'):
+        library_name = interface_xml.find('library_name').text
+        if library_name.startswith('mmiox1'):
+          mmiox_name = interface_xml.find('name').text
+      mmiox_info_name = f'{ip_instance_name}_{mmiox_name}_info'
+      assert mmiox_name
+      #
+      header_line_list.append(f'//{info_variable_name}')
+      header_line_list.append(f'extern const {info_struct_name}* const {info_variable_name};')
+      #
+      body_dec_list.append(f'//{info_variable_name}')
+      body_dec_list.append(f'static {info_struct_name} {info_static_variable_name} CACHED_DATA;')
+      body_dec_list.append(f'const {info_struct_name}* const {info_variable_name} = &{info_static_variable_name};')
+      #body_dec_list.append(f'const {info_struct_name}* const {info_variable_name} = {mmiox_info_name};')
+      #
+      body_construct_list.append(f'\t//{info_variable_name}')
+      body_construct_list.append(f'\t{para_struct_name} {para_variable_name};')
+      for parameter_xml in ip_instance_xml.findall('parameter'):
+        parameter_name = parameter_xml.find('id').text.lower()
+        parameter_value = parameter_xml.find('value').text
+        body_construct_list.append(f'\t{para_variable_name}.{parameter_name} = {parameter_value};')
+      body_construct_list.append(f'\t{library_core_name}_hwinfo_elaborate(&{para_variable_name},&{info_static_variable_name});')
+      body_construct_list.append(f'\t{info_static_variable_name}.mmiox_info = {mmiox_info_name};')
+      
+  return header_include_list, header_line_list, body_include_list, body_dec_list, body_construct_list, body_destruct_list, body_line_list
+
+def generate_dca_matrix(xml_root):
   header_include_list =[]
   header_line_list =[]
   body_include_list = []
@@ -215,7 +261,7 @@ if __name__ == '__main__':
   total_body_include_list.append('core_dependent.h')
   total_body_include_list.append(f'{header_name}.h')
   
-  generate_function_list = (generate_mmiox1,generate_extinput,generate_dca,generate_starc)
+  generate_function_list = (generate_mmiox1,generate_extinput,generate_dca_mru,generate_dca_matrix,generate_starc)
   for generate_function in generate_function_list:
     header_include_list, header_line_list, body_include_list, body_dec_list, body_construct_list, body_destruct_list, body_line_list = generate_function(xml_root)
     total_header_include_list += header_include_list
