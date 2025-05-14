@@ -34,6 +34,7 @@ def generate_mmiox1(xml_root):
       info_static_variable_name = f'{info_variable_name}_static'
       para_struct_name = 'ervp_mmiox1_hwpara_t'
       para_variable_name = f'{info_variable_name}_para'
+      wait_function_name = f'{info_variable_name}_wait'
       #
       header_line_list.append(f'//{info_variable_name}')
       header_line_list.append(f'extern const {info_struct_name}* const {info_variable_name};')
@@ -41,6 +42,9 @@ def generate_mmiox1(xml_root):
       body_dec_list.append(f'//{info_variable_name}')
       body_dec_list.append(f'static {info_struct_name} {info_static_variable_name} CACHED_DATA;')
       body_dec_list.append(f'const {info_struct_name}* const {info_variable_name} = &{info_static_variable_name};')
+      body_dec_list.append(f'static void {wait_function_name}() {{')
+      body_dec_list.append(f'\tmmiox1_inst_wait_busy({info_variable_name});')
+      body_dec_list.append(f'}}')
       #
       body_construct_list.append(f'\t//{info_variable_name}')
       body_construct_list.append(f'\t{para_struct_name} {para_variable_name};')
@@ -51,6 +55,7 @@ def generate_mmiox1(xml_root):
         body_construct_list.append(f'\t{para_variable_name}.{parameter_name} = {parameter_value};')
       body_construct_list.append(f'\tmmiox1_hwinfo_elaborate(&{para_variable_name}, &{info_static_variable_name});')
       body_construct_list.append(f'\t{info_static_variable_name}.baseaddr = {interface_name.upper()}_BASEADDR;')
+      body_construct_list.append(f'\t{info_static_variable_name}.wait_fx = {wait_function_name};')
       
   return header_include_list, header_line_list, body_include_list, body_dec_list, body_construct_list, body_destruct_list, body_line_list
 
