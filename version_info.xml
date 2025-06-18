@@ -1,6 +1,7 @@
 <?xml version="1.0" ?>
 <version_info>
   <rvx_synthesizer.path>rvx_shared/rvx_synthesizer</rvx_synthesizer.path>
-  <rvx_synthesizer.commit>b0364f8</rvx_synthesizer.commit>
-  <rvx_synthesizer.date>2025-06-13-13-49</rvx_synthesizer.date>
+  <rvx_synthesizer.commit>ee30cad</rvx_synthesizer.commit>
+  <rvx_synthesizer.date>2025-06-19-08-49</rvx_synthesizer.date>
+  <rvx_synthesizer.url>git@bitbucket.org:kyuseung_han/rvx_synthesizer.git</rvx_synthesizer.url>
 </version_info>
