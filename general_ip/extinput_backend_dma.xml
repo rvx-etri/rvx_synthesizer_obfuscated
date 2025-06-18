@@ -13,14 +13,32 @@
 			<value>32</value>
     </def_parameter>
     <def_parameter>
+			<name>BW_CONFIG</name>
+			<value>1</value>
+    </def_parameter>
+    <def_parameter>
+			<name>BW_STATUS</name>
+			<value>1</value>
+    </def_parameter>
+    <def_parameter>
 			<name>BW_EXTINPUT</name>
-			<value>32</value>
+			<value>1</value>
     </def_parameter>
     <def_parameter>
 			<name>DMA_FIFO_DEPTH</name>
       <value>32</value>
     </def_parameter>
 
+    <def_parameter>
+			<name>BW_BACKEND_CONFIG</name>
+      <value>0</value>
+      <virtual/>
+    </def_parameter>
+    <def_parameter>
+			<name>BW_BACKEND_STATUS</name>
+      <value>0</value>
+      <virtual/>
+    </def_parameter>
 		<def_parameter>
 			<name>INST_FIFO_DEPTH</name>
       <value>4</value>
@@ -78,11 +96,11 @@
       <comm_type>memory:all</comm_type>
       <parameter>
         <id>bw_config</id>
-        <value>1</value>
+        <value>BW_CONFIG+BW_BACKEND_CONFIG</value>
       </parameter>
       <parameter>
         <id>bw_status</id>
-        <value>1</value>
+        <value>BW_STATUS+BW_BACKEND_STATUS</value>
       </parameter>
       <parameter>
         <id>bw_log</id>
@@ -147,7 +165,21 @@
 			</parameter>
 			<sync>clk</sync>
 			<init>rstnn</init>
-		</interface>
+    </interface>
+
+    <signal>
+			<name>extinput_config</name>
+			<width>BW_CONFIG</width>
+      <port>output</port>
+      <user_dependent/>
+    </signal>
+
+    <signal>
+			<name>extinput_status</name>
+			<width>BW_STATUS</width>
+      <port>input</port>
+      <user_dependent/>
+    </signal>
 
     <signal>
 			<name>extinput_valid</name>

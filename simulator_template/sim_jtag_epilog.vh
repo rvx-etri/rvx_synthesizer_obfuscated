@@ -19,13 +19,21 @@
     `endif
 
 		// dram
+    `ifdef INCLUDE_EXT_MRAM
+      $display("[JTAG:INFO] MRAM set");
+      write_memory_using_jtag(`I_SYSTEM_EXT_MRAM_CONTROL_BASEADDR+`MMAP_OFFSET_MMIO_CORE_CONFIG_SAWD, (1<<3));
+    `endif
 		`ifdef USE_LARGE_RAM
 			$readmemh(`DRAM_HEX_FILE, hex_memory);
 			addr = `LARGE_RAM_BASEADDR;
 			num_word_in_line = `DRAM_WIDTH/32;
 			`ifdef FAST_APP_LOAD_DRAM
 				direct_memory_load = 1;
-				$display("[JTAG:INFO] fast DRAM load start");
+        `ifdef INCLUDE_EXT_MRAM
+  				$display("[JTAG:INFO] fast MRAM load start");
+        `else
+          $display("[JTAG:INFO] fast DRAM load start");
+        `endif
 				for(i=0; i<`DRAM_HEX_SIZE; i=i+1)
 				begin
 					word_index = `DRAM_OFFSET + i;
@@ -36,14 +44,22 @@
 				end
 				direct_memory_load = 0;
 			`else
-				$display("[JTAG:INFO] slow DRAM load start");
+        `ifdef INCLUDE_EXT_MRAM
+  				$display("[JTAG:INFO] slow MRAM load start");
+        `else
+          $display("[JTAG:INFO] slow DRAM load start");
+        `endif
 				for(i=0; i<`DRAM_HEX_SIZE; i=i+1)
 				begin
 					write_memory_using_jtag(addr, CHANGE_ENDIAN_HEX2MAN(32,`MEMORY_ENDIAN,hex_memory[i]));
 					addr = addr + 4;
 				end
 			`endif
-			$display("[JTAG:INFO] DRAM load end");
+      `ifdef INCLUDE_EXT_MRAM
+        $display("[JTAG:INFO] MRAM load end");
+      `else
+        $display("[JTAG:INFO] DRAM load end");
+      `endif
 		`endif
 		#1
 		app_is_loaded = 1;

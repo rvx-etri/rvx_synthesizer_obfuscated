@@ -56,6 +56,59 @@
     </core>
 
     <interface>
+      <name>control</name>
+      <library_name>mmiox1</library_name>
+      <role>receiver</role>
+      <comm_type>memory:all</comm_type>
+      <parameter>
+        <id>bw_config</id>
+        <value>8</value>
+      </parameter>
+      <parameter>
+        <id>bw_status</id>
+        <value>1</value>
+      </parameter>
+      <parameter>
+        <id>bw_log</id>
+        <value>1</value>
+      </parameter>
+      <parameter>
+        <id>bw_inst</id>
+        <value>1</value>
+      </parameter>
+      <parameter>
+        <id>bw_input</id>
+        <value>1</value>
+      </parameter>
+      <parameter>
+        <id>bw_output</id>
+        <value>1</value>
+      </parameter>
+      <parameter>
+        <id>config_default_value</id>
+        <value>128</value>
+      </parameter>
+      <parameter>
+        <id>log_fifo_depth</id>
+        <value>0</value>
+      </parameter>
+      <parameter>
+        <id>inst_fifo_depth</id>
+        <value>0</value>
+      </parameter>
+      <parameter>
+        <id>input_fifo_depth</id>
+        <value>0</value>
+      </parameter>
+      <parameter>
+        <id>output_fifo_depth</id>
+        <value>0</value>
+      </parameter>
+      <sync>clk</sync>
+      <init>rstnn</init>
+    </interface>
+
+    <interface>
       <name>no_name</name>
       <library_name>xmi</library_name>
       <hdl_prefix></hdl_prefix>
@@ -131,6 +184,20 @@
       <sync>None</sync>
       <init>None</init>
     </tristate>
+
+    <signal>
+      <name>EXTMR_LS_OE_P</name>
+      <width>1</width>
+      <port>output</port>
+      <comm_type>external</comm_type>
+    </signal>
+
+    <signal>
+      <name>EXTMR_LS_CE_N</name>
+      <width>1</width>
+      <port>output</port>
+      <comm_type>external</comm_type>
+    </signal>
 
   </dec_ip>
 </rvx>

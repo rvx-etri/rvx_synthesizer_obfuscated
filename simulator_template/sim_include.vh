@@ -5,6 +5,7 @@
 
 `include "ervp_platform_controller_memorymap_offset.vh"
 `include "ervp_jtag_memorymap_offset.vh"
+`include "ervp_mmiox1_memorymap_offset.vh"
 
 `include "platform_info.vh"
 `include "sim_info.vh"

@@ -140,6 +140,11 @@ begin
       $finish;
     end
   `endif
+  `ifdef SIMULATE_EXT_MRAM_BEHAVIOR
+    $display("[Warning] Please define BUILD_MODE=RELEASE");
+    $display("[Warning] in rvx_each.mh or ../user/sim/env/set_sim_env.mh");
+    $display("[Warning] Or simulating mram takes too long\n");
+  `endif
 end
 
 initial
