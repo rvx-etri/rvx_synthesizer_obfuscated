@@ -9,20 +9,20 @@ module "${MODULE_NAME}"
 
 	rlxqdready,
   rlxqvalid,
-  rlxqxlast,
-  rlxqxwrite,
-  rlxqxlen,
-  rlxqxsize,
-  rlxqxburst,
-  rlxqxwstrb,
+  rlxqlast,
+  rlxqwrite,
+  rlxqlen,
+  rlxqsize,
+  rlxqburst,
+  rlxqwstrb,
   rlxqwdata,
   rlxqaddr,
   rlxqburden,
   rlxydready,
   rlxyvalid,
-  rlxyxlast,
-  rlxyxwreply,
-  rlxyxresp,
+  rlxylast,
+  rlxywreply,
+  rlxyresp,
   rlxyrdata,
   rlxyburden
 );
@@ -34,7 +34,7 @@ module "${MODULE_NAME}"
 localparam CAPACITY = "${CAPACITY}";  // in bytes
 localparam BW_ADDR = "${BW_ADDR}";
 localparam BW_DATA = "${BW_DATA}";
-localparam BW_LPI_BURDEN = "${BW_LPI_BURDEN}";
+localparam BW_LPI_BURDEN = `REQUIRED_BW_OF_SLAVE_TID;
 localparam CELL_SIZE = "${CELL_SIZE}";  // in bytes
 localparam CELL_WIDTH = "${CELL_WIDTH}"; // MUST greater than or equal to BW_DATA
 
@@ -55,19 +55,19 @@ localparam BW_AXI_TID = BW_LPI_BURDEN;
 
 output wire [(2)-1:0] rlxqdready;
 input wire rlxqvalid;
-input wire rlxqxlast;
-input wire rlxqxwrite;
-input wire [`BW_AXI_ALEN-1:0] rlxqxlen;
-input wire [`BW_AXI_ASIZE-1:0] rlxqxsize;
-input wire [`BW_AXI_ABURST-1:0] rlxqxburst;
-input wire [`BW_AXI_WSTRB(BW_AXI_DATA)-1:0] rlxqxwstrb;
+input wire rlxqlast;
+input wire rlxqwrite;
+input wire [`BW_AXI_ALEN-1:0] rlxqlen;
+input wire [`BW_AXI_ASIZE-1:0] rlxqsize;
+input wire [`BW_AXI_ABURST-1:0] rlxqburst;
+input wire [`BW_AXI_WSTRB(BW_AXI_DATA)-1:0] rlxqwstrb;
 input wire [BW_AXI_DATA-1:0] rlxqwdata;
 input wire [BW_AXI_ADDR-1:0] rlxqaddr;
 input wire [BW_LPI_BURDEN-1:0] rlxqburden;
 input wire [(2)-1:0] rlxydready;
 output wire rlxyvalid;
-output wire rlxyxlast;
-output wire rlxyxwreply;
-output wire [`BW_AXI_RESP-1:0] rlxyxresp;
+output wire rlxylast;
+output wire rlxywreply;
+output wire [`BW_AXI_RESP-1:0] rlxyresp;
 output wire [BW_AXI_DATA-1:0] rlxyrdata;
 output wire [BW_LPI_BURDEN-1:0] rlxyburden;

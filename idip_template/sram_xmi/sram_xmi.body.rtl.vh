@@ -94,14 +94,14 @@ i_lpixm2scell
 assign rlxqdready = lqdready;
 assign lqvalid = rlxqvalid;
 assign lqhint = 0;
-assign lqlast = rlxqxlast;
-assign lqafy = (~rlxqxwrite) | rlxqxlast;
-assign lqdata = {rlxqburden,rlxqxwrite,rlxqxlen,rlxqxsize,rlxqxburst,rlxqxwstrb,rlxqwdata,rlxqaddr};
+assign lqlast = rlxqlast;
+assign lqafy = (~rlxqwrite) | rlxqlast;
+assign lqdata = {rlxqburden,rlxqwrite,rlxqlen,rlxqsize,rlxqburst,rlxqwstrb,rlxqwdata,rlxqaddr};
 
 assign lydready = rlxydready;
 assign rlxyvalid = lyvalid;
-assign rlxyxlast = lylast;
-assign {rlxyburden,rlxyxwreply,rlxyxresp,rlxyrdata} = lydata;
+assign rlxylast = lylast;
+assign {rlxyburden,rlxywreply,rlxyresp,rlxyrdata} = lydata;
 
 generate
 for(i=0; i<NUM_CELL; i=i+1)

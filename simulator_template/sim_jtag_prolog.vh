@@ -39,15 +39,15 @@ assign boot_mode = `BOOT_MODE_OCD;
 `ifdef FAST_APP_LOAD
 `ifdef USE_LARGE_RAM
 `ifndef SIMULATE_SDRAM_BEHAVIOR
-`ifndef SIMULATE_EXT_MRAM_BEHAVIOR
-`define FAST_APP_LOAD_DRAM
-`endif
+`define FAST_APP_LOAD_LARGE_RAM
 `endif
 `endif // USE_LARGE_RAM
 `endif
 
-`ifdef FAST_APP_LOAD_DRAM
-`define DRAM_CELL i_platform.`DRAM_IP_INSTANCE.i_cell.memory
+`ifdef FAST_APP_LOAD_LARGE_RAM
+`define VLRAM_CELL i_platform.`DRAM_IP_INSTANCE.i_cell.memory
+`define MRAM_UP_CELL i_mram_up.MRAM_Array
+`define MRAM_LOW_CELL i_mram_low.MRAM_Array
 `endif
 
 `define BW_WORD 32
@@ -140,10 +140,10 @@ begin
       $finish;
     end
   `endif
-  `ifdef SIMULATE_EXT_MRAM_BEHAVIOR
+  `ifndef FAST_APP_LOAD
     $display("[Warning] Please define BUILD_MODE=RELEASE");
     $display("[Warning] in rvx_each.mh or ../user/sim/env/set_sim_env.mh");
-    $display("[Warning] Or simulating mram takes too long\n");
+    $display("[Warning] Or simulation takes too long\n");
   `endif
 end
 
@@ -165,7 +165,7 @@ begin
       `ifdef FAST_APP_LOAD
         direct_memory_load = 1;
         num_word_in_line = `SRAM_CELL_VARIABLE_WIDTH/`BW_WORD;
-        $display("[JTAG:INFO] fast SRAM load start");
+        $display("[JTAG:INFO] SRAM fast load start");
         for(i=0; i<`SRAM_HEX_SIZE; i=i+1)
         begin
           word_index = `SRAM_OFFSET + i;

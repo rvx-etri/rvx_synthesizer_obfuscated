@@ -61,11 +61,10 @@ module "${MODULE_NAME}"
 /* parameter input output */
 ////////////////////////////
 
-parameter BW_ADDR = "${BW_ADDR}";
-parameter BW_LPI_BURDEN = `REQUIRED_BW_OF_SLAVE_TID;
-
 localparam CAPACITY = 32'h 8000000;  // in bytes
+localparam BW_ADDR = "${BW_ADDR}";
 localparam BW_DATA = 32;
+localparam BW_LPI_BURDEN = `REQUIRED_BW_OF_SLAVE_TID;
 localparam CELL_SIZE = CAPACITY;  // in bytes
 localparam CELL_WIDTH = 32; // MUST greater than or equal to BW_DATA
 
