@@ -19,10 +19,6 @@
 ORIGINAL_FILE_LIST = ./git ./Makefile ./synthesizer_common.mh
 REMOVE_FILE_LIST = $(filter-out ${ORIGINAL_FILE_LIST}, $(wildcard ./*))
 
-GIT_REMOTE_URL=git@bitbucket.org:kyuseung_han/rvx_synthesizer_binary.git
-
-include ${RVX_SHARED_HOME}/rvx_python_config.mh
--include ${RVX_UTIL_HOME}/remove_git_history.mh
 -include ./synthesizer_common.mh
 
 default:
