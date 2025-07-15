@@ -40,14 +40,15 @@ module PACT_LSU_NODE
 	subop,
 	immediate_value,
 
-  core0_rlqhint,
+  core0_rlqdready,
   core0_rlqvalid,
-  core0_rlqready,
+  core0_rlqhint,
+  core0_rlqlast,
   core0_rlqafy,
   core0_rlqdata,
-  core0_rlyhint,
-  core0_rlyvalid,
   core0_rlydready,
+  core0_rlyvalid,
+  core0_rlyhint,
   core0_rlylast,
   core0_rlydata,
 
@@ -135,14 +136,15 @@ localparam BW_LPI_BURDEN = 0;
 
 `include "lpimo_lpara.vb"
 
-input wire core0_rlqhint;
+output wire [2-1:0] core0_rlqdready;
 input wire core0_rlqvalid;
-output wire core0_rlqready;
+input wire core0_rlqhint;
+input wire core0_rlqlast;
 input wire core0_rlqafy;
 input wire [BW_LPI_QDATA-1:0] core0_rlqdata;
-output wire core0_rlyhint;
-output wire core0_rlyvalid;
 input wire [2-1:0] core0_rlydready;
+output wire core0_rlyvalid;
+output wire core0_rlyhint;
 output wire core0_rlylast;
 output wire [BW_LPI_YDATA-1:0] core0_rlydata;
 
@@ -187,7 +189,7 @@ output wire cache_sxbready;
 
 wire cache_control_valid;
 wire cache_control_ready;
-wire [`BW_CACHE_COMMAND-1:0] cache_control_command;
+wire [`BW_CACHE_CONTROL_CMD-1:0] cache_control_command;
 wire [BW_ADDR-1:0] cache_control_base;
 wire [BW_ADDR-1:0] cache_control_last;
 wire cache_busy;	
@@ -198,25 +200,27 @@ localparam ACCESS_BW_LPI_BURDEN = NUM_EXTERNAL_INTERFACE+1;
 localparam ACCESS_BW_LPI_QDATA = (ACCESS_BW_LPI_BURDEN-BW_LPI_BURDEN) + BW_LPI_QDATA;
 localparam ACCESS_BW_LPI_YDATA = (ACCESS_BW_LPI_BURDEN-BW_LPI_BURDEN) + BW_LPI_YDATA;
 
-wire [NUM_EXTERNAL_INTERFACE-1:0] external_lqhint_list;
+wire [2*NUM_EXTERNAL_INTERFACE-1:0] external_lqdready_list;
 wire [NUM_EXTERNAL_INTERFACE-1:0] external_lqvalid_list;
-wire [NUM_EXTERNAL_INTERFACE-1:0] external_lqready_list;
+wire [NUM_EXTERNAL_INTERFACE-1:0] external_lqhint_list;
+wire [NUM_EXTERNAL_INTERFACE-1:0] external_lqlast_list;
 wire [NUM_EXTERNAL_INTERFACE-1:0] external_lqafy_list;
 wire [BW_LPI_QDATA*NUM_EXTERNAL_INTERFACE-1:0] external_lqdata_list;
-wire [NUM_EXTERNAL_INTERFACE-1:0] external_lyhint_list;
-wire [NUM_EXTERNAL_INTERFACE-1:0] external_lyvalid_list;
 wire [2*NUM_EXTERNAL_INTERFACE-1:0] external_lydready_list;
+wire [NUM_EXTERNAL_INTERFACE-1:0] external_lyvalid_list;
+wire [NUM_EXTERNAL_INTERFACE-1:0] external_lyhint_list;
 wire [NUM_EXTERNAL_INTERFACE-1:0] external_lylast_list;
 wire [BW_LPI_YDATA*NUM_EXTERNAL_INTERFACE-1:0] external_lydata_list;
 
-wire access_lqhint;
+wire [2-1:0] access_lqdready;
 wire access_lqvalid;
-wire access_lqready;
+wire access_lqhint;
+wire access_lqlast;
 wire access_lqafy;
 wire [ACCESS_BW_LPI_QDATA-1:0] access_lqdata;
-wire access_lyhint;
-wire access_lyvalid;
 wire [2-1:0] access_lydready;
+wire access_lyvalid;
+wire access_lyhint;
 wire access_lylast;
 wire [ACCESS_BW_LPI_YDATA-1:0] access_lydata;
 
@@ -226,7 +230,7 @@ wire [ACCESS_BW_LPI_YDATA-1:0] access_lydata;
 
 assign external_lqhint_list = core0_rlqhint;
 assign external_lqvalid_list = core0_rlqvalid;
-assign core0_rlqready = external_lqready_list;
+assign core0_rlqdready = external_lqdready_list;
 assign external_lqafy_list = core0_rlqafy;
 assign external_lqdata_list = core0_rlqdata;
 
@@ -268,30 +272,32 @@ i_lsu
   .cache_busy(cache_busy),
   .cache_control_busy(cache_control_busy),
 
-  .external_rlqhint_list(external_lqhint_list),
+  .external_rlqdready_list(external_lqdready_list),
   .external_rlqvalid_list(external_lqvalid_list),
-  .external_rlqready_list(external_lqready_list),
+  .external_rlqhint_list(external_lqhint_list),
+  .external_rlqlast_list(external_lqlast_list),  
   .external_rlqafy_list(external_lqafy_list),
   .external_rlqdata_list(external_lqdata_list),
-  .external_rlyhint_list(external_lyhint_list),
-  .external_rlyvalid_list(external_lyvalid_list),
   .external_rlydready_list(external_lydready_list),
+  .external_rlyvalid_list(external_lyvalid_list),
+  .external_rlyhint_list(external_lyhint_list),
   .external_rlylast_list(external_lylast_list),
   .external_rlydata_list(external_lydata_list),
 
-  .access_slqhint(access_lqhint),
+  .access_slqdready(access_lqdready),
   .access_slqvalid(access_lqvalid),
-  .access_slqready(access_lqready),
+  .access_slqhint(access_lqhint),
+  .access_slqlast(access_lqlast),
   .access_slqafy(access_lqafy),
   .access_slqdata(access_lqdata),
-  .access_slyhint(access_lyhint),
-  .access_slyvalid(access_lyvalid),
   .access_slydready(access_lydready),
+  .access_slyvalid(access_lyvalid),
+  .access_slyhint(access_lyhint),
   .access_slylast(access_lylast),
   .access_slydata(access_lydata)
 );
 
-ERVP_PARALLEL_CACHE_TYPE1_LS
+ERVP_CACHE_LS
 #(
 	.BW_ADDR(BW_ADDR),
 	.CACHE_SIZE(CACHE_SIZE),
@@ -300,8 +306,7 @@ ERVP_PARALLEL_CACHE_TYPE1_LS
 	.BW_AXI_DATA(BW_AXI_DATA),
 	.BW_AXI_TID(BW_AXI_TID),
 	.CACHE_POLICY(CACHE_POLICY),
-  .BW_LPI_BURDEN(ACCESS_BW_LPI_BURDEN),
-  .NUM_CACHE(2)
+  .BW_LPI_BURDEN(ACCESS_BW_LPI_BURDEN)
 )
 i_cache
 (
@@ -322,7 +327,7 @@ i_cache
 
 	.access_rlqhint(access_lqhint),
   .access_rlqvalid(access_lqvalid),
-  .access_rlqready(access_lqready),
+  .access_rlqready(access_lqdready[0]),
   .access_rlqafy(access_lqafy),
   .access_rlqdata(access_lqdata),
   .access_rlyhint(access_lyhint),
