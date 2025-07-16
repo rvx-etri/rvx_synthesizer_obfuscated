@@ -185,5 +185,8 @@ if __name__ == "__main__":
   if 'INCLUDE_TRAFFIC_GENERATOR' in define_dict and 'INCLUDE_DMA' not in define_dict:
       line_list.append(f'-include ${{RVX_SSW_HOME}}/api/dma/env/set_env.mh')
 
+  line_list.append('INCLUDES += -I${PLATFORM_DIR}/util/generated/ssw')
+  line_list.append('C_SRC += $(wildcard ${PLATFORM_DIR}/util/generated/ssw/*.c)')
+
   set_env_file = output_dir / 'set_env.mh'
   set_env_file.write_text('\n'.join(line_list))
