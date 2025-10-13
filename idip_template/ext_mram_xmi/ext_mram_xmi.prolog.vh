@@ -1,5 +1,6 @@
 `include "ervp_global.vh"
 `include "ervp_axi_define.vh"
+`include "hw_info.vh"
 `include "sim_info.vh"
 `include "munoc_network_include.vh"
 
@@ -67,11 +68,12 @@ localparam BW_DATA = 32;
 localparam BW_LPI_BURDEN = `REQUIRED_BW_OF_SLAVE_TID;
 localparam CELL_SIZE = CAPACITY;  // in bytes
 localparam CELL_WIDTH = 32; // MUST greater than or equal to BW_DATA
+localparam CLK_HZ = "${CLK_HZ}";
 
 `include "ervp_log_util.vf"
 `include "ervp_bitwidth_util.vf"
 
-localparam BW_CONFIG = 8;
+localparam BW_CONFIG = 16;
 localparam BW_STATUS = 1;
 localparam BW_LOG = 1;
 localparam BW_INST = 1;

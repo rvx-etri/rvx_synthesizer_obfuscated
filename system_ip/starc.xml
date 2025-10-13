@@ -33,6 +33,14 @@
       <name>BW_WEIGHT</name>
       <value>8</value>
     </def_parameter>
+    <def_parameter>
+      <name>CAPACITANCE</name>
+      <value>2048</value>
+    </def_parameter>
+    <def_parameter>
+      <name>BW_CAP_COUNTER</name>
+      <value>16</value>
+    </def_parameter>
 
     <def_parameter>
       <name>BW_CONFIG</name>

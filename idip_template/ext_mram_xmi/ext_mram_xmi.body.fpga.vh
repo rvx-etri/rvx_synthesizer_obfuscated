@@ -45,7 +45,7 @@ wire [BW_DATA-1:0] cell_wdata [NUM_CELL-1:0];
 wire cell_renable [NUM_CELL-1:0];
 wire [BW_DATA-1:0] cell_rdata [NUM_CELL-1:0];
 
-localparam BW_STATE = 8;
+localparam BW_STATE = BW_CONFIG;
 
 reg [BW_STATE-1:0] cell_state;
 wire is_last_cell_state;
@@ -123,6 +123,9 @@ begin : generate_cell_signals
 end
 endgenerate
 
+localparam [63:0] WRITE_RECOVERY_TIME_NS = 12;
+localparam WRITE_RECOVERY_CYCLE = ((WRITE_RECOVERY_TIME_NS-1)*CLK_HZ/1000000000) + 1;
+
 always@(posedge clk, negedge rstnn)
 begin
   if(rstnn==0)
@@ -130,7 +133,12 @@ begin
   else if(cell_enable[0])
   begin
     if(is_last_cell_state)
-      cell_state <= 1;
+    begin
+      if(cell_renable[0])
+        cell_state <= (1 << WRITE_RECOVERY_CYCLE);
+      else
+        cell_state <= 1;
+    end
     else
       cell_state <= {cell_state,cell_state[BW_STATE-1]};
   end
@@ -172,7 +180,7 @@ begin
       if(cell_renable[0])
         extmr_rdata <= EXTMR_DQ_sival;
     end
-    else if(cell_state[0])
+    else if(cell_state[WRITE_RECOVERY_CYCLE])
     begin
       extmr_a_reg <= cell_index[0];
       extmr_e_n_reg <= 0;
@@ -182,7 +190,7 @@ begin
       if(cell_wenable[0])
         extmr_wdata <= cell_wdata[0];
     end
-    else if(cell_state[1])
+    else if(cell_state[WRITE_RECOVERY_CYCLE+1])
     begin
       extmr_be_n_reg <= (cell_renable[0])? 0 : ~cell_wenable_byte[0];
     end

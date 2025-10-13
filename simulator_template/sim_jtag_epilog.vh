@@ -19,9 +19,9 @@
     `endif
 
 		// dram
-    `ifdef INCLUDE_EXT_MRAM
+    `ifdef SIMULATE_EXT_MRAM_BEHAVIOR
       $display("[JTAG:INFO] MRAM config set");
-      write_memory_using_jtag(`I_SYSTEM_EXT_MRAM_CONTROL_BASEADDR+`MMAP_OFFSET_MMIO_CORE_CONFIG_SAWD, (1<<3));
+      write_memory_using_jtag(`I_SYSTEM_EXT_MRAM_CONTROL_BASEADDR+`MMAP_OFFSET_MMIO_CORE_CONFIG_SAWD, (1<<(EXT_MRAM_WRITE_RECOVERY_CYCLE+EXT_MRAM_WRITE_CYCLE)));
     `endif
 		`ifdef USE_LARGE_RAM
 			$readmemh(`DRAM_HEX_FILE, hex_memory);

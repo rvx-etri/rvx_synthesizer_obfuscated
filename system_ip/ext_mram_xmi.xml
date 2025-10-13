@@ -27,6 +27,10 @@
       <name>CELL_WIDTH</name>
       <value>BW_DATA</value>
     </def_parameter>
+    <def_parameter>
+      <name>CLK_HZ</name>
+      <value>0</value>
+    </def_parameter>
 
     <imp_dependent/>
 
@@ -62,7 +66,7 @@
       <comm_type>memory:all</comm_type>
       <parameter>
         <id>bw_config</id>
-        <value>8</value>
+        <value>16</value>
       </parameter>
       <parameter>
         <id>bw_status</id>
@@ -86,7 +90,7 @@
       </parameter>
       <parameter>
         <id>config_default_value</id>
-        <value>128</value>
+        <value>32768</value>
       </parameter>
       <parameter>
         <id>log_fifo_depth</id>
