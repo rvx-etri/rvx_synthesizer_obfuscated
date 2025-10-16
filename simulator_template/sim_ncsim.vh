@@ -21,7 +21,9 @@ i_ncsim_manager
   .uart_rx(ncsim_uart_rx),
 	.uart_tx(ncsim_uart_tx),
   .record_enable(record_enable),
+  .dump_enable(dump_enable),
   .simulation_stop(simulation_stop)
 );
 
 `include "ncsim_record.vb"
+`include "ncsim_dump.vb"

@@ -8,7 +8,8 @@ wire app_finished = i_platform.i_rtl.platform_controller.app_finished;
 wire ncsim_finish_force;
 wire ncsim_uart_rx;
 wire ncsim_uart_tx;
-reg record_enable;
+reg record_enable; // wave
+reg dump_enable; // dump
 wire simulation_stop;
 
 //////////
