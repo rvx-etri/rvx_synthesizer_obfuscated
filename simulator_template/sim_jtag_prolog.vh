@@ -127,14 +127,14 @@ end
 initial
 begin
   `ifdef USE_SMALL_RAM
-    if((`SRAM_HEX_SIZE*4) > `SIM_SMALL_RAM_SIZE)
+    if((`SRAM_HEX_SIZE/4) > `SIM_SMALL_RAM_SIZE)
     begin
       $display("[Error] SIM_SMALL_RAM_SIZE is too small");
       $finish;
     end
   `endif
   `ifdef USE_LARGE_RAM
-    if((`DRAM_HEX_SIZE*4) > `SIM_LARGE_RAM_SIZE)
+    if((`DRAM_HEX_SIZE/4) > `SIM_LARGE_RAM_SIZE)
     begin
       $display("[Error] SIM_LARGE_RAM_SIZE is too small");
       $finish;
