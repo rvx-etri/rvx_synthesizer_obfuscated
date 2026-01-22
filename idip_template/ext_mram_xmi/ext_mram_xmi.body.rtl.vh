@@ -204,7 +204,7 @@ begin
       extmr_w_n_reg <= 1;
       extmr_g_n_reg <= 1;
       extmr_be_n_reg <= -1;
-      extmr_dq_sod_reg <= -1;
+      // extmr_dq_sod_reg <= -1;
       if(cell_renable[0])
         extmr_rdata <= EXTMR_DQ_sival;
     end
