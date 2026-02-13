@@ -838,7 +838,9 @@ class IpMemorymapOffset():
       if type=='gpio':
         line_list.append(f'wire [`BW_GPIO_VALUE-1:0] signal_{signal_name}_user_pinout = 0;')
 
-      if type=='simple' or type=='read_reg' or type=='write_reg':
+      if type=='simple':
+        line_list.append(f'reg [{bitwidth}-1:0] reg_{signal_name};')
+      elif type=='read_reg' or type=='write_reg':
         line_list.append(f'wire [{bitwidth}-1:0] reg_{signal_name};')
       elif type=='wfifo' or type=='rfifo':
         line_list.append(f'wire fifo_{signal_name}_clear;')

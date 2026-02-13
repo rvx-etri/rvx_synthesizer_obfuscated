@@ -80,6 +80,13 @@
 			<width>NUM_LOCK</width>
 			<port>output</port>
 			<comm_type>lock_status_list</comm_type>
+    </signal>
+
+    <signal>
+			<name>thread_status_list</name>
+			<width>32</width>
+			<port>output</port>
+			<comm_type>thread_status_list</comm_type>
 		</signal>
 
 		<signal>

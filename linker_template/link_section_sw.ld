@@ -76,7 +76,7 @@
 	.stack :
 	{
 		. = ALIGN("${DATA_ALIGN_SIZE}");
-		. += ("${STACK_SIZE}"*"${NUM_REAL_CORE}");
+		. += ("${STACK_SIZE}"*"${NUM_CORE_PHYSICAL}");
 		. = ALIGN("${DATA_ALIGN_SIZE}");
 		PROVIDE( _sp = . );
 	} >"${SINGLE_WRITE_MEMORY_REGION}"
