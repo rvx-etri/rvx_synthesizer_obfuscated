@@ -123,8 +123,8 @@ begin : generate_cell_signals
 end
 endgenerate
 
-localparam [63:0] WRITE_RECOVERY_TIME_NS = 12;
-localparam WRITE_RECOVERY_CYCLE = ((WRITE_RECOVERY_TIME_NS-1)*CLK_HZ/1000000000) + 1;
+localparam [64-1:0] WRITE_RECOVERY_TIME_NS = 12;
+localparam [32-1:0] WRITE_RECOVERY_CYCLE = ((WRITE_RECOVERY_TIME_NS-1)*CLK_HZ/1000000000) + 1;
 
 always@(posedge clk, negedge rstnn)
 begin

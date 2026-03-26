@@ -182,6 +182,27 @@
     </signal>
 
     <signal>
+			<name>extinput_clear</name>
+			<width>1</width>
+      <port>output</port>
+      <user_dependent/>
+    </signal>
+
+    <signal>
+			<name>extinput_enable</name>
+			<width>1</width>
+      <port>output</port>
+      <user_dependent/>
+    </signal>
+
+    <signal>
+			<name>extinput_start</name>
+			<width>1</width>
+      <port>output</port>
+      <user_dependent/>
+    </signal>
+
+    <signal>
 			<name>extinput_valid</name>
 			<width>1</width>
       <port>input</port>

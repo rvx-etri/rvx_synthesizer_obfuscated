@@ -139,16 +139,30 @@
     </interface>
 
     <signal>
-			<name>extinput_config</name>
-			<width>BW_CONFIG</width>
+			<name>extinput_status</name>
+			<width>BW_STATUS</width>
+      <port>input</port>
+      <user_dependent/>
+    </signal>
+
+    <signal>
+			<name>extinput_clear</name>
+			<width>1</width>
       <port>output</port>
       <user_dependent/>
     </signal>
 
     <signal>
-			<name>extinput_status</name>
-			<width>BW_STATUS</width>
-      <port>input</port>
+			<name>extinput_enable</name>
+			<width>1</width>
+      <port>output</port>
+      <user_dependent/>
+    </signal>
+
+    <signal>
+			<name>extinput_start</name>
+			<width>1</width>
+      <port>output</port>
       <user_dependent/>
     </signal>
 
