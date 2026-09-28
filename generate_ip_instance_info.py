@@ -55,7 +55,7 @@ def generate_mmiox1(xml_root):
         body_construct_list.append(f'\t{para_variable_name}.{parameter_name} = {parameter_value};')
       body_construct_list.append(f'\tmmiox1_hwinfo_elaborate(&{para_variable_name}, &{info_static_variable_name});')
       body_construct_list.append(f'\t{info_static_variable_name}.baseaddr = {interface_name.upper()}_BASEADDR;')
-      body_construct_list.append(f'\t{info_static_variable_name}.busy_fx = {busy_function_name};')
+      body_construct_list.append(f'\t{info_static_variable_name}.busy_fx = (ervp_hwtask_busy_fx_t){busy_function_name};')
       
   return header_include_list, header_line_list, body_include_list, body_dec_list, body_construct_list, body_destruct_list, body_line_list
 
